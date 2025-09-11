@@ -1,0 +1,2 @@
+# Shoporia
+An ecommerce project involves the design, development, and deployment of an online platform that allows businesses to sell products or services over the internet. The main objective of the project is to provide users with a seamless shopping experience while enabling businesses to manage their sales, inventory, &amp; customer interactions efficiently.
