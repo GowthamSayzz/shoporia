@@ -1,0 +1,13 @@
+.display-block{
+    display: block !important;
+}
+
+.display-none{
+    display: none !important;
+}
+
+.logo-img{
+    width: 200px;
+    height: 60px;
+    margin-top: 20px;
+}
