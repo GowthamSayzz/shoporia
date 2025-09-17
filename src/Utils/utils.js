@@ -12,3 +12,9 @@ export const checkUserLoginStatus = () =>{
         return true;
     }
 }
+
+export const getLoggedInUserId = () => {
+    let userData = localStorage.getItem('userData');
+    userData = JSON.parse(userData);
+    return userData.id;
+}

@@ -3,6 +3,7 @@ import LogoNoBg from './Images/Shoporia NoBg Logo.png';
 import { useState } from 'react';
 import { ERROR_MESSAGES } from '../Constants/errors';
 import { signinAPI } from '../Services/authServices';
+import {Link} from "react-router-dom";
 
 function SignIn() {
 
@@ -86,10 +87,10 @@ function SignIn() {
                             </div>
                             <div className='row d-flex'>
                                 <div className='text-primary mt-2 col-6'>
-                                    <a href='/forgot-password' className='link-offset-2 link-underline link-underline-opacity-0'>Forgot Password</a>
+                                    <Link to='/forgot-password' className='link-offset-2 link-underline link-underline-opacity-0'>Forgot Password</Link>
                                 </div>
                                 <div className='text-primary mt-2 col-6 text-end'>
-                                    <a href='/signup' className='link-offset-2 link-underline link-underline-opacity-0'>Create Account</a>
+                                    <Link to='/signup' className='link-offset-2 link-underline link-underline-opacity-0'>Create Account</Link>
                                 </div>
                             </div>
 
@@ -102,9 +103,9 @@ function SignIn() {
             <div className='row justify-content-center mt-3'>
                 <div className='col-4 text-center'>
                     <div className='row mt-3'>
-                        <div className='col-4'><a href='/' className='link-offset-2 link-underline link-underline-opacity-0'>Conditions of use</a></div>
-                        <div className='col-4'><a href='/' className='link-offset-2 link-underline link-underline-opacity-0'>Privacy of use</a></div>
-                        <div className='col-4'><a href='/' className='link-offset-2 link-underline link-underline-opacity-0'>Help</a></div>
+                        <div className='col-4'><Link to='/' className='link-offset-2 link-underline link-underline-opacity-0'>Conditions of use</Link></div>
+                        <div className='col-4'><Link to='/' className='link-offset-2 link-underline link-underline-opacity-0'>Privacy of use</Link></div>
+                        <div className='col-4'><Link to='/' className='link-offset-2 link-underline link-underline-opacity-0'>Help</Link></div>
                     </div>
                 </div>
                 <div className='mt-3 text-center'>

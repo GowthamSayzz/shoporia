@@ -3,6 +3,7 @@ import LogoNoBg from './Images/Shoporia NoBg Logo.png';
 import { useState } from 'react';
 import { ERROR_MESSAGES } from '../Constants/errors';
 import { signupAPI } from '../Services/authServices';
+import { Link } from 'react-router-dom';
 
 
 function Signup() {
@@ -101,14 +102,14 @@ function Signup() {
                             <hr className='mt-4' />
                             <div>
                                 <strong className='fs-6'>Buying for work?</strong> <br />
-                                <a href='/' className='link-offset-2 link-underline link-underline-opacity-0'>Create a free business account</a>
+                                <Link to='/' className='link-offset-2 link-underline link-underline-opacity-0'>Create a free business account</Link>
                             </div>
                             <hr />
                             <div className='mt-4'>
-                                <label className='form-label'>Already have an account? <a href='/' className='link-offset-2 link-underline link-underline-opacity-0'>Sign In<i className="bi bi-caret-right-fill fs-6"></i></a></label>
+                                <label className='form-label'>Already have an account? <Link to='/' className='link-offset-2 link-underline link-underline-opacity-0'>Sign In<i className="bi bi-caret-right-fill fs-6"></i></Link></label>
                             </div>
                             <div className='mt-3'>
-                                By creating an account for logging in, you are agree to Shoporia's <a href='/' className='link-offset-2 link-underline link-underline-opacity-0'>Conditions of Use</a> and <a href='/' className='link-offset-2 link-underline link-underline-opacity-0'>Privacy policy</a>
+                                By creating an account for logging in, you are agree to Shoporia's <Link to='/' className='link-offset-2 link-underline link-underline-opacity-0'>Conditions of Use</Link> and <Link to='/' className='link-offset-2 link-underline link-underline-opacity-0'>Privacy policy</Link>
                             </div>
                         </div>
                     </div>
@@ -118,9 +119,9 @@ function Signup() {
             <div className='row justify-content-center mt-3'>
                 <div className='col-4 text-center'>
                     <div className='row mt-3'>
-                        <div className='col-4'><a href='/' className='link-offset-2 link-underline link-underline-opacity-0'>Conditions of use</a></div>
-                        <div className='col-4'><a href='/' className='link-offset-2 link-underline link-underline-opacity-0'>Privacy of use</a></div>
-                        <div className='col-4'><a href='/' className='link-offset-2 link-underline link-underline-opacity-0'>Help</a></div>
+                        <div className='col-4'><Link to='/' className='link-offset-2 link-underline link-underline-opacity-0'>Conditions of use</Link></div>
+                        <div className='col-4'><Link to='/' className='link-offset-2 link-underline link-underline-opacity-0'>Privacy of use</Link></div>
+                        <div className='col-4'><Link to='/' className='link-offset-2 link-underline link-underline-opacity-0'>Help</Link></div>
                     </div>
                 </div>
                 <div className='mt-3 text-center'>

@@ -11,6 +11,10 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import SignIn from './shared/SignIn.js';
 import Signup from './shared/Signup.js';
 import ResetPassword from './shared/ResetPassword.js';
+import Search from './Products/Search.js';
+import SingleProduct from './Products/SingleProduct.js';
+import Address from './Address/Addresses.js';
+import "react-toastify/dist/ReactToastify.css";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -21,6 +25,9 @@ root.render(
         <Route path="/signin" Component={SignIn} />
         <Route path='/signup' Component={Signup} />
         <Route path='/forgot-password' Component={ResetPassword} />
+        <Route path='/product-search' Component={Search} />
+        <Route path='/addresses' Component={Address} />
+        <Route path='/product/:productId' Component={SingleProduct} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

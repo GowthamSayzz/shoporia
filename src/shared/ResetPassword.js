@@ -3,6 +3,7 @@ import LogoNoBg from './Images/Shoporia NoBg Logo.png';
 import { useState } from 'react';
 import { ERROR_MESSAGES } from '../Constants/errors';
 import { resetpasswordAPI } from '../Services/authServices';
+import {Link} from 'react-router-dom';
 
 function ResetPassword(){
 
@@ -82,9 +83,9 @@ function ResetPassword(){
             <div className='row justify-content-center mt-3'>
                 <div className='col-4 text-center'>
                     <div className='row mt-3'>
-                        <div className='col-4'><a href='/' className='link-offset-2 link-underline link-underline-opacity-0'>Conditions of use</a></div>
-                        <div className='col-4'><a href='/' className='link-offset-2 link-underline link-underline-opacity-0'>Privacy of use</a></div>
-                        <div className='col-4'><a href='/' className='link-offset-2 link-underline link-underline-opacity-0'>Help</a></div>
+                        <div className='col-4'><Link to='/' className='link-offset-2 link-underline link-underline-opacity-0'>Conditions of use</Link></div>
+                        <div className='col-4'><Link to='/' className='link-offset-2 link-underline link-underline-opacity-0'>Privacy of use</Link></div>
+                        <div className='col-4'><Link to='/' className='link-offset-2 link-underline link-underline-opacity-0'>Help</Link></div>
                     </div>
                 </div>
                 <div className='mt-3 text-center'>
