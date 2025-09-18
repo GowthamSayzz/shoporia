@@ -15,6 +15,7 @@ import Search from './Products/Search.js';
 import SingleProduct from './Products/SingleProduct.js';
 import Address from './Address/Addresses.js';
 import "react-toastify/dist/ReactToastify.css";
+import Cart from './Products/Cart.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -28,6 +29,7 @@ root.render(
         <Route path='/product-search' Component={Search} />
         <Route path='/addresses' Component={Address} />
         <Route path='/product/:productId' Component={SingleProduct} />
+        <Route path='/cart' Component={Cart} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
