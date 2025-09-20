@@ -3,13 +3,16 @@ import Footer from "../shared/Footer";
 import NavBar from "../shared/Navbar";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
+import LogoNoBg from '../shared/Images/Shoporia only logo.png';
+import { getJWTToken, getLoggedInEmail, getLoggedInUserId, getLoggedInUserName } from "../Utils/utils";
 
 function Cart() {
 
     const [cartData, setCartData] = useState([]);
 
     /**
-     * !!! Increases the product qty's in a cart
+     * !!! INCREASES THE PRODUCT QTY'S IN USER CART
+     * 
      * @param {gives product information} product 
      * @param {gives product qty's} j 
      * @param {gives cart information} cart 
@@ -37,7 +40,8 @@ function Cart() {
     }
 
     /**
-     * !!! Decrease the product qty's in the cart
+     * !!! DECREASE THE PRODUCT QTY'S IN USER CART
+     * 
      * @param {gives product information} product 
      * @param {gives product qty's} j 
      * @param {gives cart information} cart 
@@ -46,7 +50,7 @@ function Cart() {
 
     const qtyDecrease = async (product, j, cart, i) => {
         let newQty = product.quantity - 1;
-        if (newQty > 0) {
+        if(newQty > 0){
             let tempcartData = [...cartData];
             tempcartData[i]['products'][j].quantity = newQty;
             setCartData([...tempcartData]);
@@ -66,8 +70,8 @@ function Cart() {
     }
 
     /**
-     * TODO: Updates the cart product qty's and price based on end user cart
-     * !!! Updating the cart via API Response
+     * TODO: UPDATES THE CART PRODUCT QTY'S AND PRICE BASED ON END USER CART
+     * !!! UPDATING THE CART VIA API RESPONSE
     */
 
     const updateProductData = async (product) => {
@@ -90,7 +94,7 @@ function Cart() {
     }
 
     /**
-     * !!! Calculating the total price and product qty's after adding to the cart
+     * !!! CALCULATING THE TOTAL PRICE AND PRODUCT QTY'S AFTER ADDDING TO THE CART
     */
 
     const calculatetotalPrice = (products) => {
@@ -102,28 +106,112 @@ function Cart() {
             totalPrice = totalPrice + tempTotalPrice;
             totalQtys = totalQtys + element.quantity;
         });
-
-        console.log(totalQtys, totalPrice);
-
-        return "(" + totalQtys + " items): " + totalPrice;
+        return "(" + totalQtys + " items): " + totalPrice.toFixed(2);
     }
 
     /**
-     * TODO: delete the total cart products 
+     * !!! DELETING OF A PRODUCT FROM THE CART
      */
 
-    const deleteProduct = (product) => {
-
+    const deleteProduct = async(product) => {
+        try {
+            let apiResponse = await axios.delete(`https://dummyjson.com/products/${product.id}`);
+            console.log("DELETE API RESPONSE", apiResponse.data);
+            setCartData(prevProducts => prevProducts.filter(p=> p.id !== product.id));
+            toast.success("Product deleted successfully!");
+        } catch (error) {
+            toast.error(error.message);
+        }
     }
 
     /**
-     * TODO: Renders the required cart information (based on logged in user) for the page when it load in browser
+     * !!! PAYMENT GATEWAY INITIATION
+     */
+
+    const handlePayments = async () => {
+        let orderId = 'shoporia_OrderId_dgbHDc42xeJG44';
+        let amount = 1000;
+
+        let createOrderAPIData = {
+            userId: getLoggedInUserId(),
+            token: getJWTToken().replace('Bearer ', ''),
+            amount: 100
+        }
+
+        try {
+            let apiResponse = await axios.post('https://api.softwareschool.co/payments/create-order', createOrderAPIData);
+            orderId = apiResponse.data.data.order.id;
+            console.log(orderId);
+        } catch (error) {
+            toast.error(error.message);
+        }
+
+
+        var options = {
+            "key": "rzp_live_c785j6XmnPXWle",  /// live: rzp_live_c785j6XmnPXWle  /// test: rzp_test_8gNHxGVGlM9lZR
+            "amount": amount,
+            "currency": "INR",
+            "name": "Shoporia",
+            "description": "Test Transaction",
+            "image": LogoNoBg,
+            "order_id": orderId,
+            "handler": async function (response) {
+                let orderSuccessAPIData = {
+                    userId: getLoggedInUserId(),
+                    token: getJWTToken().replace('Bearer ', ''),
+                    paymentId: response.razorpay_payment_id,
+                    orderId: response.razorpay_order_id,
+                    signature: response.razorpay_signature
+                }
+                let apiResponse = await axios.post('https://api.softwareschool.co/payments/order-success', orderSuccessAPIData);
+                console.log(apiResponse.data);
+                toast.success('Payment Success');
+            },
+            "prefill": {
+                "name": getLoggedInUserName(),
+                "email": getLoggedInEmail(),
+                "contact": ""
+            }
+        };
+        var rzp1 = new window.Razorpay(options);
+        rzp1.on('payment.failed', async function (response) {
+            let failedOrderAPIData = {
+                userId: getLoggedInUserId(),
+                token: getJWTToken().replace('Bearer ', ''),
+                paymentId: response.error.metadata.payment_id,
+                orderId: response.error.metadata.order_id,
+                error: response.error
+            }
+            try {
+                let apiResponse = await axios.post('https://api.softwareschool.co/payments/order-failed', failedOrderAPIData);
+                console.log(apiResponse.data);
+                toast.error('Payment Failed');
+            } catch (error) {
+                toast.error('Payment Failed')
+            }
+            console.log(response.error.code);
+            console.log(response.error.description);
+            console.log(response.error.source);
+            console.log(response.error.step);
+            console.log(response.error.reason);
+            console.log(response.error.metadata.order_id);
+            console.log(response.error.metadata.payment_id);
+        });
+        try {
+            rzp1.open();
+        } catch (error) {
+            toast.error(error.message);
+        }
+    }
+
+    /**
+     * TODO: RENDERS THE REQUIRED CART USER CART INFORMATION & PRODUCT DETAILS
      */
 
     useEffect(() => {
         const getCartData = async () => {
             try {
-                let userId = 6; //userId hardcoded due to API limitations
+                let userId = 15; //userId hardcoded due to API limitations
                 let apiResponse = await axios.get('https://dummyjson.com/carts/user/' + userId)
                 setCartData([...apiResponse.data.carts]);
             } catch (error) {
@@ -133,11 +221,19 @@ function Cart() {
 
         getCartData();
 
+        const script = document.createElement('script');
+        script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+        script.async = true;
+        document.body.appendChild(script);
+        return () => {
+            document.body.removeChild(script);
+        }
+
     }, [])
     return (
         <div>
             <NavBar />
-            <div className="container">
+            <div className="container shoporia-mt">
                 <div className="row">
                     <div className="col-8">
                         {
@@ -154,12 +250,14 @@ function Cart() {
                                                         <div className="col-8">
                                                             <div className="card-body">
                                                                 <h5>{products.title}</h5>
-                                                                <div>
-                                                                    <button className="btn btn-light" onClick={e => qtyDecrease(products, j, cart, i)}><strong> - </strong></button>
-                                                                    <span>{products.quantity}</span>
-                                                                    <button className="btn btn-light" onClick={e => qtyIncrease(products, j, cart, i)}><strong> + </strong></button>
-                                                                    <a href="/" className="card-link" onClick={e => deleteProduct(products)}>Delete</a>
-                                                                    <a href="/" className="card-link">Save for later</a>
+                                                                <div className="d-flex flex-row mt-3">
+                                                                    <div className="btn-group me-2 border border-dark">
+                                                                        <button className="btn btn-light" onClick={e => qtyDecrease(products, j, cart, i)}><strong> - </strong></button>
+                                                                        <span className="m-2">{products.quantity}</span>
+                                                                        <button className="btn btn-light" onClick={e => qtyIncrease(products, j, cart, i)}><strong> + </strong></button>
+                                                                    </div>
+                                                                    <button className="btn btn-danger me-2" onClick={e => deleteProduct(products)}>Delete</button>
+                                                                    <button className="btn btn-secondary me-2">Save for later</button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -179,7 +277,23 @@ function Cart() {
                             ))
                         }
                     </div>
-                    <div className="col-4"></div>
+                    <div className="col-4">
+                        <div className="shadow card">
+                            <div className="card-body">
+                                {
+                                    cartData.length > 0 &&
+                                    <div>
+                                        <p>
+                                            <strong>Subtotal {calculatetotalPrice(cartData[0].products)}</strong>
+                                        </p>
+                                        <div className="d-grid gap-2">
+                                            <button className="btn btn-warning rounded-pill" type="button" onClick={e => handlePayments()}>Buy Now</button>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <ToastContainer />

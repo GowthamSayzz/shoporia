@@ -18,6 +18,7 @@ function Search() {
             //let apiResponse = await axios.get('https://dummyjson.com/products/search?q=' + searchKeyword);
             let apiResponse = await axios.get('https://dummyjson.com/products/search?q=phone');
             setProducts(apiResponse.data.products);
+            console.log(apiResponse.data);
         }
         getProductsData()
     }, [])
@@ -25,7 +26,7 @@ function Search() {
     return (
         <div>
             <Navbar />
-            <div className='container-fluid'>
+            <div className='container-fluid shoporia-mt'>
                 <div className='row mt-4'>
                     <div className='col-3'>
                         part 1
@@ -33,7 +34,7 @@ function Search() {
                     <div className='col-6'>
                         {
                             products.map((product, i) => (
-                                <Product data={product} />
+                                <Product data={product} key={i}/>
                             ))
                         }
                     </div>

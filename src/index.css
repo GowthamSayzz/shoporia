@@ -35,3 +35,11 @@
 .shoporia-pointer{
     cursor: pointer;
 }
+
+.shoporia-mt{
+    margin-top: 90px;
+}
+
+body{
+    font-family: Nunito;
+}

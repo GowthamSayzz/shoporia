@@ -10,25 +10,25 @@ function NavBar() {
 
     const logoutUser = () => {
         localStorage.clear();
-        window.location.href = '/signin';
+        window.location.href = '/';
     }
 
     let [showSearchDropdown, setSearchDropdown] = useState(false);
     //let [searchWord, setSearchWord] = useState("");
-    let [searchSuggestionList,  setsearchSuggestionList] = useState("");
+    let [searchSuggestionList, setsearchSuggestionList] = useState("");
 
     const searchHandler = async (e) => {
         let keyword = e.target.value;
-        if(keyword.length > 0){
-            try{
-                let apiResponse = await searchsuggestionsAPI({searchWord: keyword});
+        if (keyword.length > 0) {
+            try {
+                let apiResponse = await searchsuggestionsAPI({ searchWord: keyword });
                 let suggestionList = apiResponse.data.data;
                 let suggestionValues = suggestionList.map(searchSuggestion => {
                     return searchSuggestion.value
                 });
                 setsearchSuggestionList([...suggestionValues]);
                 setSearchDropdown(true);
-            }catch(error){
+            } catch (error) {
                 alert("unable to process request");
             }
 
@@ -39,43 +39,59 @@ function NavBar() {
         console.log(e);
         window.location = '/product-search?keyword=' + e;
     }
+    const [isNavShowing, setIsNavShowing] = useState(false);
+    const handleNavToggle = () => {
+        setIsNavShowing(!isNavShowing);
+    };
 
     return (
         <div>
-            <nav className="navbar bg-body-tertiary navbar-expand-lg">
-                <div className="container-fluid">
-                    <Link to='/'><img src={LogoNoBg} alt="Logo" style={{ width: "170px", height: "50px" }} /></Link>
-                    <div className="input-group ms-5">
-                        <button className="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">All</button>
-                        <ul className="dropdown-menu">
-                            <li><a className="dropdown-item" href="/">Action before</a></li>
-                            <li><a className="dropdown-item" href="/">Another action before</a></li>
-                            <li><a className="dropdown-item" href="/">Something else here</a></li>
-                            <li><hr className="dropdown-divider" /></li>
-                            <li><a className="dropdown-item" href="/">Separated link</a></li>
-                        </ul>
-                        <input type="text" className="form-control" onChange={e => searchHandler(e)} />
-                        <button className="btn btn-outline-secondary me-5" type="button"><i className="bi bi-search"></i></button>
-                        {
-                            showSearchDropdown === true &&
-                            <div className='search-dropdown shadow'>
-                                {
-                                    searchSuggestionList.map((searchSuggestionUI, i) => (
-                                        <div key={i} className='suggestion-item' onClick={ e=> handleSuggestionClick(searchSuggestionUI)}>
-                                            {searchSuggestionUI}
-                                        </div>
-                                    ))
-                                }
-                            </div>
-                        }
+            <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+                <div className="container d-flex justify-content-between align-items-center">
+
+                    {/* ---------- Left Side Logo ---------- */}
+
+                    <Link to='/' className='navbar-brand'><img src={LogoNoBg} alt="Logo" style={{ width: "170px", height: "50px" }} /></Link>
+
+                    {/* ---------- Home Screen Search Bar ---------- */}
+                    <div className="mt-1 ms-5 d-none d-lg-flex flex-grow-1 justify-content-center align-items-center">
+                        <div className="input-group w-100" style={{ maxWidth: "500px" }}>
+                            <button className="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">All</button>
+                            <ul className="dropdown-menu">
+                                <li><a className="dropdown-item" href="/">Action before</a></li>
+                                <li><a className="dropdown-item" href="/">Another action before</a></li>
+                                <li><a className="dropdown-item" href="/">Something else here</a></li>
+                                <li><hr className="dropdown-divider" /></li>
+                                <li><a className="dropdown-item" href="/">Separated link</a></li>
+                            </ul>
+                            <input type="text" className="form-control" placeholder='Search Shoporia.in' onChange={e => searchHandler(e)} />
+                            <button className="btn btn-outline-secondary" type="button"><i className="bi bi-search"></i></button>
+                            {
+                                showSearchDropdown === true &&
+                                <div className='search-dropdown shadow'>
+                                    {
+                                        searchSuggestionList.map((searchSuggestionUI, i) => (
+                                            <div key={i} className='suggestion-item' onClick={e => handleSuggestionClick(searchSuggestionUI)}>
+                                                {searchSuggestionUI}
+                                            </div>
+                                        ))
+                                    }
+                                </div>
+                            }
+                        </div>
                     </div>
-                    <div className="d-flex">
-                        <ul className="navbar-nav">
+
+                    {/* ---------- Home Screen Menu ---------- */}
+                    <button className='navbar-toggler' type='button' onClick={e => handleNavToggle()}>
+                        <span className='navbar-toggler-icon'></span>
+                    </button>
+                    <div className={`collapse navbar-collapse ${isNavShowing ? "show" : ""}`} id='navbarNav'>
+                        <ul className="navbar-nav ms-auto">
                             <li className="nav-item"><Link to="/" className="nav-link">Home</Link></li>
                             <li className="nav-item"><Link to="/product-search" className="nav-link">Products</Link></li>
                             <li className="nav-item"><Link to="/pricing" className="nav-link">Pricing</Link></li>
                             <li className="nav-item"><Link to="/contact" className="nav-link">Contact Us</Link></li>
-                            <li className="nav-item">
+                            <li className="nav-item ms-2">
                                 <div className="dropdown">
                                     <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         Hello, User

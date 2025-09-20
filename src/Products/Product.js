@@ -9,7 +9,7 @@ function Product({ data }) {
             <div className='row'>
                 <div className='col-4'>
                     <a href={"/product/" + data.id} target="_blank" rel="noreferrer">
-                        <img src={data.thumbnail} className='img-fluid rounded-start shoporia-pointer' alt='...' />
+                        <img src={data.thumbnail} className='img-fluid rounded-start shoporia-pointer p-3' alt='...' />
                     </a>
 
                 </div>

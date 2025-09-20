@@ -18,3 +18,19 @@ export const getLoggedInUserId = () => {
     userData = JSON.parse(userData);
     return userData.id;
 }
+
+export const getLoggedInUserName = () => {
+    let userData = localStorage.getItem('userData');
+    userData = JSON.parse(userData);
+    return userData.name;
+}
+
+export const getLoggedInEmail = () => {
+    let userData = localStorage.getItem('userData');
+    userData = JSON.parse(userData);
+    return userData.email;
+}
+
+export const getJWTToken = () => {
+    return localStorage.getItem('token');
+}

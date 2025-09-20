@@ -1,13 +1,12 @@
+import HomeSection from "./Home/HomeSection.js";
 import Footer from "./shared/Footer";
 import NavBar from "./shared/Navbar";
 
-function Home(){
-    return(
+function Home() {
+    return (
         <div>
             <NavBar />
-            <div className="text-danger">
-                To Do Content
-            </div>
+            <HomeSection />
             <Footer />
         </div>
     )
