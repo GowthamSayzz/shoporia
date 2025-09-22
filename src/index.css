@@ -43,3 +43,14 @@
 body{
     font-family: Nunito;
 }
+
+.account:hover{
+    background-color: rgba(230, 240, 255, 1);
+}
+
+.account-div-height{
+    height: 35px;
+    width: auto;
+    margin-top: 10px;
+    color: #212121;
+}

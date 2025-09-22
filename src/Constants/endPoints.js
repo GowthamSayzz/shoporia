@@ -7,3 +7,10 @@ export const API_END_POINTS = {
     ADDRESS_VIEW: 'api/std/address/view',
     ADDRESS_DELETE: 'api/std/address/delete'
 }
+
+export const API_END_POINTSPRO = {
+    SIGNUP: '/api/std/create-acount',
+    SIGNIN: '/api/v1/auth/login',
+    FORGOT_PASSWORD: '/api/std/reset-password',
+    SEARCH_SUGGESTIONS: '/api/std/search',
+}

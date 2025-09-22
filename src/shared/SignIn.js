@@ -2,7 +2,7 @@ import { checkUserLoginStatus, isEmailValid } from '../Utils/utils';
 import LogoNoBg from './Images/Shoporia NoBg Logo.png';
 import { useState } from 'react';
 import { ERROR_MESSAGES } from '../Constants/errors';
-import { signinAPI } from '../Services/authServices';
+import { signinAPIPRO } from '../Services/authServices';
 import {Link} from "react-router-dom";
 
 function SignIn() {
@@ -42,12 +42,14 @@ function SignIn() {
         setSigninErrors({ ...tempErrors });
         if (noofErrors === false) {
             try {
-                let apiResponse = await signinAPI({ ...signinData });
+                let apiResponse = await signinAPIPRO({ ...signinData });
                 setSigninErrors({ ...signinData, apiError: false });
-                if (apiResponse.data.result === "success") {
-                    localStorage.setItem("userData", JSON.stringify(apiResponse.data.data));
-                    localStorage.setItem("tracking_Id", 1)
-                    window.location = "/";
+                if (apiResponse.data.access_token !== null) {
+                    let token = apiResponse.data.access_token;
+                    localStorage.setItem("userData", JSON.stringify(apiResponse.data.access_token));
+                    localStorage.setItem("tracking_Id", 1);
+                    localStorage.setItem('access_token', token);
+                    window.location.href = "/";
                 }
             } catch (error) {
                 setSigninErrors({ ...signinData, apiError: true });

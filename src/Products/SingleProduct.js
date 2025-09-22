@@ -17,17 +17,19 @@ function SingleProduct() {
     const [qty, setQty] = useState(1);
 
     useEffect(() => {
+        //Loads the data when product screen loads
         const getproductData = async () => {
-
-            let apiResponse = await axios.get('https://dummyjson.com/products/' + productId);
+            
+            let apiResponse = await axios.get('https://api.escuelajs.co/api/v1/products/' + productId);
             setProductData({ ...apiResponse.data });
             console.log(apiResponse.data);
             setMainImage(apiResponse.data.images[0]);
         }
         getproductData();
 
+        //For Other Products tab
         const getSimilarProducts = async () => {
-            let apiResponse = await axios.get('https://fakestoreapi.com/products');
+            let apiResponse = await axios.get('https://api.escuelajs.co/api/v1/products');
             setSimilarProducts(apiResponse.data);
             console.log("fake API DATA",apiResponse.data);
         }
@@ -97,14 +99,14 @@ function SingleProduct() {
                             </div>
                         </div>
                     </div>
-                    <div className="col-4 mt-3">
+                    <div className="col-4">
                         {productData != null && <h3>{productData.title}</h3>}
                         <div>
                             <h5 className="fs-6 badge text-bg-success">{productData != null && productData.rating} <i className="i bi-star-fill"></i></h5>
                             <h3><i className="i bi-currency-rupee fs-4"></i>{productData != null && productData.price}</h3>
-                            <h3 className="fs-5">In Stock: {productData != null && productData.stock}</h3>
-                            <h3 className="fs-5">{productData != null && productData.shippingInformation}</h3>
-                            <h3 className="fs-5"><i className="bi bi-truck"></i> {productData != null && productData.returnPolicy}</h3>
+                            {/* <h3 className="fs-5">In Stock: {productData != null && productData.stock}</h3> */}
+                            {/* <h3 className="fs-5">{productData != null && productData.shippingInformation}</h3> */}
+                            {/* <h3 className="fs-5"><i className="bi bi-truck"></i> {productData != null && productData.returnPolicy}</h3> */}
                             <h3 className="fs-6">Product Description: {productData != null && productData.description}</h3>
                         </div>
                     </div>
@@ -136,13 +138,13 @@ function SingleProduct() {
                                     {
                                         similarProducts.map((similarproductsLoop,i) =>(
                                             <div key={i} className="me-3">
-                                                <img src={similarproductsLoop?.image} 
+                                                <img src={similarproductsLoop?.images} 
                                                 alt={similarproductsLoop?.title}
                                                 style={{ width: "150px", height: "150px", objectFit: "contain" }}
                                                 />
                                                 <h6 className="mt-3">{similarproductsLoop?.title}</h6>
                                                 <h6><i className="i bi-currency-rupee fs-6"></i>{similarproductsLoop?.price}</h6>
-                                                <h6 className="mt-3 badge text-bg-success">{similarproductsLoop?.rating.rate} <i className="i bi-star-fill text-sm"></i></h6>
+                                                {/* <h6 className="mt-3 badge text-bg-success">{similarproductsLoop?.rating.rate} <i className="i bi-star-fill text-sm"></i></h6> */}
                                             </div>
                                         ))
                                     }

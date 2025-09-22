@@ -42,9 +42,11 @@ function Address() {
     return (
         <div>
             <NavBar />
-            <div className="container mt-3">
+            {/* <div className="container shoporia-mt">
                 <div className="row">
-                    <div className="col-3"></div>
+                    <div className="col-3">
+
+                    </div>
                     <div className="col-6">
                         <button className="btn btn-secondary" onClick={e => setShowAddAddress(true)}>Add New Address</button>
                         {
@@ -56,9 +58,30 @@ function Address() {
                 <div className="row">
                     {
                         addressData.map((address, i) => (
-                            <SingleAddress address={address} key={i} addressDelete={addressDelete}/>
+                            <SingleAddress address={address} key={i} addressDelete={addressDelete} />
                         ))
                     }
+                </div>
+            </div> */}
+            
+            <div className="container shoporia-mt shadow">
+                <div className="row p-3">
+                    <div className="col-md-9 w-100">
+                        <h5 className="mb-3">Manage Addresses</h5>
+                        <div className="mt-3">
+                        <button className="btn btn-secondary" onClick={e => setShowAddAddress(true)}><i className="bi bi-plus"></i>Add New Address</button>
+                        {
+                            showAddAddress === true && <AddAddress addnewAddress={addnewAddress} />
+                        }
+                    </div>
+                        <div>
+                            {
+                            addressData.map((address, i) => (
+                                <SingleAddress address={address} key={i} addressDelete={addressDelete} />
+                            ))
+                        }
+                        </div>
+                    </div>
                 </div>
             </div>
             <Footer />

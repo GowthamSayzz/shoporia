@@ -16,6 +16,7 @@ import SingleProduct from './Products/SingleProduct.js';
 import Address from './Address/Addresses.js';
 import "react-toastify/dist/ReactToastify.css";
 import Cart from './Products/Cart.js';
+import Account from './Account/Account.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -30,6 +31,7 @@ root.render(
         <Route path='/addresses' Component={Address} />
         <Route path='/product/:productId' Component={SingleProduct} />
         <Route path='/cart' Component={Cart} />
+        <Route path='/account' Component={Account} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
