@@ -5,18 +5,14 @@ export const isEmailValid = (email) => {
 }
 
 export const checkUserLoginStatus = () =>{
-    let userData = localStorage.getItem('userData');
-    if(userData === null){
-        return false;
-    }else{
-        return true;
-    }
+    let loggedInStatus = localStorage.getItem('isLoggedIn');
+    return loggedInStatus === 'true';
 }
 
 export const getLoggedInUserId = () => {
-    let userData = localStorage.getItem('userData');
-    userData = JSON.parse(userData);
-    return userData.id;
+    let userId = localStorage.getItem('userId');
+    userId = JSON.parse(userId);
+    return userId;
 }
 
 export const getLoggedInUserName = () => {

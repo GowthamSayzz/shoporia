@@ -10,15 +10,17 @@ function Account() {
 
     const logoutUser = () => {
         localStorage.clear();
-        window.location.href = '/';
+        window.location.href = '/signin';
     }
 
     useEffect(() => {
         const getUserName = async () => {
             let access_token = localStorage.getItem("access_token");
             if (!access_token) {
+                localStorage.clear();
+                sessionStorage.clear();
                 toast.error("Unknown User Detected");
-                return (window.location.href = "/signin");
+                return window.location.href = "/signin";
             }
             try {
                 let apiResponse = await axios.get(

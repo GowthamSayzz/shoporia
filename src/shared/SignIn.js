@@ -1,9 +1,10 @@
-import { checkUserLoginStatus, isEmailValid } from '../Utils/utils';
+import { checkUserLoginStatus } from '../Utils/utils';
 import LogoNoBg from './Images/Shoporia NoBg Logo.png';
 import { useState } from 'react';
 import { ERROR_MESSAGES } from '../Constants/errors';
-import { signinAPIPRO } from '../Services/authServices';
+import { signinAPI } from '../Services/authServices';
 import {Link} from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
 
 function SignIn() {
 
@@ -12,11 +13,11 @@ function SignIn() {
         window.location = '/';
     }
 
-    const [signinData, setsigninData] = useState({ email: "", password: "" });
-    const [signinErrors, setSigninErrors] = useState({ email: false, password: false, apiError: false });
+    const [signinData, setsigninData] = useState({ username: "", password: "" });
+    const [signinErrors, setSigninErrors] = useState({ username: false, password: false, apiError: false });
 
-    const updateEmail = (e) => {
-        setsigninData({ ...signinData, email: e.target.value });
+    const updateUserName = (e) => {
+        setsigninData({ ...signinData, username: e.target.value });
     }
 
     const updatePassword = (e) => {
@@ -27,11 +28,11 @@ function SignIn() {
         let tempErrors = { signinErrors }
         let noofErrors = false;
 
-        if (isEmailValid(signinData.email) === false) {
+        if (signinData.username.trim() === "") {
             noofErrors = true;
-            tempErrors = { ...tempErrors, email: true };
+            tempErrors = { ...tempErrors, username: true };
         } else {
-            tempErrors = { ...tempErrors, email: false };
+            tempErrors = { ...tempErrors, username: false };
         }
         if (signinData.password.length < 6) {
             noofErrors = true;
@@ -42,17 +43,18 @@ function SignIn() {
         setSigninErrors({ ...tempErrors });
         if (noofErrors === false) {
             try {
-                let apiResponse = await signinAPIPRO({ ...signinData });
+                let apiResponse = await signinAPI({ ...signinData });
                 setSigninErrors({ ...signinData, apiError: false });
-                if (apiResponse.data.access_token !== null) {
-                    let token = apiResponse.data.access_token;
-                    localStorage.setItem("userData", JSON.stringify(apiResponse.data.access_token));
-                    localStorage.setItem("tracking_Id", 1);
-                    localStorage.setItem('access_token', token);
+                if (apiResponse.data.accessToken) {
+                    localStorage.setItem("access_token", apiResponse.data.accessToken);
+                    localStorage.setItem('userId', apiResponse.data.id);
+                    localStorage.setItem("isLoggedIn", "true");
                     window.location.href = "/";
+                    toast.success('Login Success');
                 }
             } catch (error) {
                 setSigninErrors({ ...signinData, apiError: true });
+                toast.error(error.message);
             }
         }
     }
@@ -69,9 +71,9 @@ function SignIn() {
                             <h3>Login</h3>
 
                             <div className='mb-2'>
-                                <strong className='form-label'>Email</strong>
-                                <input type='text' className='form-control' placeholder='Your Email' onChange={e => updateEmail(e)} />
-                                <div className='text-danger'>{signinErrors.email === true && ERROR_MESSAGES.SIGNIN.EMAIL}</div>
+                                <strong className='form-label'>Username</strong>
+                                <input type='text' className='form-control' placeholder='Your Username' onChange={e => updateUserName(e)} />
+                                <div className='text-danger'>{signinErrors.username === true && ERROR_MESSAGES.SIGNIN.USERNAME}</div>
                             </div>
                             <div className='mb-2'>
                                 <strong className='form-label'>Password</strong>
@@ -114,6 +116,7 @@ function SignIn() {
                     &copy; 2025, Shoporia.in, Inc. or its affiliates
                 </div>
             </div>
+            <ToastContainer />
         </div>
     )
 

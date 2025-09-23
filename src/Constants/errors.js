@@ -5,6 +5,7 @@ export const ERROR_MESSAGES = {
         PASSWORD: "Password must be 6 characters"
     },
     SIGNIN: {
+        USERNAME: "Username is incorrect",
         EMAIL: "Email is not valid",
         PASSWORD: "Password must be 6 characters",
         INVALID: "Invalid Login Credentials"

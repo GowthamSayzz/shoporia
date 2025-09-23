@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { checkUserLoginStatus } from '../Utils/utils';
 import LogoNoBg from './Images/Shoporia NoBg Logo.png';
 import { Link } from 'react-router-dom';
@@ -6,8 +6,13 @@ import { searchsuggestionsAPI } from '../Services/searchServices';
 
 function NavBar() {
 
-    let isUserLoggedIn = checkUserLoginStatus();
+    const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
+    useEffect(() => {
+        let isUserLoggedIn = checkUserLoginStatus();
+        setIsUserLoggedIn(isUserLoggedIn);
+    },[]);
+    
     const logoutUser = () => {
         localStorage.clear();
         window.location.href = '/';
@@ -36,7 +41,6 @@ function NavBar() {
     }
 
     const handleSuggestionClick = (e) => {
-        console.log(e);
         window.location = '/product-search?keyword=' + e;
     }
     const [isNavShowing, setIsNavShowing] = useState(false);

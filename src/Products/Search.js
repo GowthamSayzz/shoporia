@@ -9,20 +9,25 @@ function Search() {
     let searchKeyword = '';
     let queryParams = new URLSearchParams(window.location.search);
     searchKeyword = queryParams.get('keyword');
-    console.log(searchKeyword);
 
     const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState([]);           // stores API categories
     const [selectedCategories, setSelectedCategories] = useState([]);
 
     useEffect(() => {
-        const getProductsData = async () => {
-            //let apiResponse = await axios.get('https://dummyjson.com/products/search?q=' + searchKeyword);
-            let apiResponse = await axios.get('https://api.escuelajs.co/api/v1/products');
-            console.log("Products Data", apiResponse.data);
-            setProducts(apiResponse.data);
+        // const getProductsData = async () => {
+        //     //let apiResponse = await axios.get('https://dummyjson.com/products/search?q=' + searchKeyword);
+        //     let apiResponse = await axios.get('https://dummyjson.com/products/search?q=phone');
+        //     console.log("Products Data", apiResponse.data);
+        //     setProducts(apiResponse.data.products);
+        // }
+        // getProductsData();
+
+        const getAllProducts = async () => {
+            let apiResponse = await axios.get('https://dummyjson.com/products/?limit=0');
+            setProducts(apiResponse.data.products);
         }
-        getProductsData();
+        getAllProducts();
         fetchCategories();
     }, []);
 
@@ -80,7 +85,7 @@ function Search() {
                     <div className='col-6'>
                         {
                             products.map((product, i) => (
-                                <Product data={product} key={i}/>
+                                <Product data={product} key={i} />
                             ))
                         }
                     </div>

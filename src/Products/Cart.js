@@ -211,9 +211,10 @@ function Cart() {
     useEffect(() => {
         const getCartData = async () => {
             try {
-                let userId = 15; //userId hardcoded due to API limitations
+                let userId = getLoggedInUserId(); //userId hardcoded due to API limitations
                 let apiResponse = await axios.get('https://dummyjson.com/carts/user/' + userId)
                 setCartData([...apiResponse.data.carts]);
+                console.log(apiResponse.data);
             } catch (error) {
                 toast.error(error.message);
             }
