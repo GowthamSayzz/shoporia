@@ -14,5 +14,8 @@ export const ERROR_MESSAGES = {
         EMAIL_VALIDATION: "Email is not valid",
         EMAIL_NOT_FOUND: "Email not found",
         EMAIL_FOUND: "Password reset link sent successfully"
+    },
+    PRODUCTS: {
+        NO_PRODUCTS_FOUND: 'No products found for selected categories'
     }
 }

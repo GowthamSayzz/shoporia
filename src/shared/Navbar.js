@@ -3,6 +3,7 @@ import { checkUserLoginStatus } from '../Utils/utils';
 import LogoNoBg from './Images/Shoporia NoBg Logo.png';
 import { Link } from 'react-router-dom';
 import { searchsuggestionsAPI } from '../Services/searchServices';
+import { toast, ToastContainer } from 'react-toastify';
 
 function NavBar() {
 
@@ -11,8 +12,8 @@ function NavBar() {
     useEffect(() => {
         let isUserLoggedIn = checkUserLoginStatus();
         setIsUserLoggedIn(isUserLoggedIn);
-    },[]);
-    
+    }, []);
+
     const logoutUser = () => {
         localStorage.clear();
         window.location.href = '/';
@@ -26,22 +27,21 @@ function NavBar() {
         let keyword = e.target.value;
         if (keyword.length > 0) {
             try {
-                let apiResponse = await searchsuggestionsAPI({ searchWord: keyword });
-                let suggestionList = apiResponse.data.data;
+                let apiResponse = await searchsuggestionsAPI(keyword);
+                let suggestionList = apiResponse.data.products;
                 let suggestionValues = suggestionList.map(searchSuggestion => {
-                    return searchSuggestion.value
+                    return searchSuggestion.title
                 });
-                setsearchSuggestionList([...suggestionValues]);
+                setsearchSuggestionList(suggestionValues);
                 setSearchDropdown(true);
             } catch (error) {
-                alert("unable to process request");
+                toast.error('Unable to process your request', error.message);
             }
-
         }
     }
 
     const handleSuggestionClick = (e) => {
-        window.location = '/product-search?keyword=' + e;
+        window.location.href = '/product-search?keyword=' + e;
     }
     const [isNavShowing, setIsNavShowing] = useState(false);
     const handleNavToggle = () => {
@@ -122,6 +122,7 @@ function NavBar() {
                     </div>
                 </div>
             </nav>
+            <ToastContainer />
         </div>
     )
 }

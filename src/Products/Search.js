@@ -1,55 +1,65 @@
 import Navbar from '../shared/Navbar';
 import Footer from '../shared/Footer';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import Product from './Product';
+import { toast, ToastContainer } from 'react-toastify';
+import { getAllProductsAPI, getAllProductsCategoriesAPI, getAllProductsByCategoryAPI } from '../Services/productsService';
+import { ERROR_MESSAGES } from '../Constants/errors';
 
 function Search() {
 
-    let searchKeyword = '';
-    let queryParams = new URLSearchParams(window.location.search);
-    searchKeyword = queryParams.get('keyword');
-
     const [products, setProducts] = useState([]);
-    const [categories, setCategories] = useState([]);           // stores API categories
+    const [categories, setCategories] = useState([]);
     const [selectedCategories, setSelectedCategories] = useState([]);
+    const [filteredProducts, setFilteredProducts] = useState([]);
 
     useEffect(() => {
-        // const getProductsData = async () => {
-        //     //let apiResponse = await axios.get('https://dummyjson.com/products/search?q=' + searchKeyword);
-        //     let apiResponse = await axios.get('https://dummyjson.com/products/search?q=phone');
-        //     console.log("Products Data", apiResponse.data);
-        //     setProducts(apiResponse.data.products);
-        // }
-        // getProductsData();
 
-        const getAllProducts = async () => {
-            let apiResponse = await axios.get('https://dummyjson.com/products/?limit=0');
-            setProducts(apiResponse.data.products);
-        }
-        getAllProducts();
-        fetchCategories();
+        const fetchData = async () => {
+            try {
+                const productsResponse = await getAllProductsAPI();
+                setProducts(productsResponse.data.products);
+
+                const categoriesResponse = await getAllProductsCategoriesAPI();
+                setCategories(categoriesResponse.data);
+
+                setFilteredProducts(productsResponse.data.products);
+            } catch (error) {
+                toast.error(error.message);
+            }
+        };
+        fetchData();
     }, []);
 
-    const fetchCategories = async () => {
-        try {
-            const response = await axios.get(
-                "https://api.escuelajs.co/api/v1/categories"
-            );
-            setCategories(response.data); // store categories in state
-        } catch (error) {
-            console.error("Error fetching categories:", error);
-        }
-    };
-
-    // Handler to toggle checkbox selection
-    const handleCheckboxChange = (categoryName) => {
+    const handleCheckboxChange = async (categoryName) => {
         setSelectedCategories((prev) =>
             prev.includes(categoryName)
-                ? prev.filter((c) => c !== categoryName) // remove if unchecked
-                : [...prev, categoryName]                // add if checked
+                ? prev.filter((c) => c !== categoryName)
+                : [...prev, categoryName]
         );
+        let tempCategories = [...selectedCategories]
+        if (tempCategories.includes(categoryName)) {
+            tempCategories = tempCategories.filter((c) => c !== categoryName)
+        } else {
+            tempCategories.push(categoryName)
+        }
+        let tempData = [];
+        if (tempCategories.length === 0) {
+            tempData = [...products];
+        } else {
+            tempData = await getCategoryData(tempCategories)
+        }
+        setFilteredProducts([...tempData])
     };
+
+    const getCategoryData = async (tempCategories) => {
+        let tempData = []
+        for (let cat of tempCategories) {
+            let apiResponse = await getAllProductsByCategoryAPI(cat.toLowerCase());
+            tempData = [...tempData, ...apiResponse?.data?.products]
+        }
+        return [...tempData];
+    }
 
     return (
         <div>
@@ -63,7 +73,7 @@ function Search() {
                             </div>
                             {
                                 categories.map((category) => (
-                                    <label key={category.id} style={{ marginRight: "15px" }}>
+                                    <label key={category.name}>
                                         <input
                                             type="checkbox"
                                             checked={selectedCategories.includes(category.name)}
@@ -83,14 +93,19 @@ function Search() {
                         </div>
                     </div>
                     <div className='col-6'>
-                        {
-                            products.map((product, i) => (
-                                <Product data={product} key={i} />
+                        {filteredProducts.length > 0 ? (
+                            filteredProducts.map((product, i) => (
+                                <div key={i}>
+                                    <Product data={product} />
+                                </div>
                             ))
-                        }
+                        ) : (
+                            <p>{ERROR_MESSAGES.PRODUCTS.NO_PRODUCTS_FOUND}</p>
+                        )}
                     </div>
                 </div>
             </div>
+            <ToastContainer />
             <Footer />
         </div>
     )

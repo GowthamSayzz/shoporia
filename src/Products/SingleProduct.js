@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from '../shared/Navbar';
 import Footer from '../shared/Footer';
-import axios from "axios";
 import { SideBySideMagnifier } from "react-image-magnifiers";
 import { ToastContainer, toast } from "react-toastify";
-import { getLoggedInUserId } from "../Utils/utils";
+import { getLoggedInUserId, userLoginVerification } from "../Utils/utils";
+import { getProductByIdAPI, getOtherProductsAPI } from '../Services/productsService';
+import { getCartByUserId, addtoCartByUserId } from '../Services/cartServices';
 
 function SingleProduct() {
 
@@ -14,13 +15,17 @@ function SingleProduct() {
     const [similarProducts, setSimilarProducts] = useState([]);
 
     const [mainImage, setMainImage] = useState("");
-    const [qty, setQty] = useState(1);
+    const [productqty, setQty] = useState(1);
+
+    const [getCart, setGetcart] = useState();
 
     useEffect(() => {
+        userLoginVerification();
+        loadCart();
         //Loads the data when product screen loads
         const getproductData = async () => {
             try {
-                let apiResponse = await axios.get('https://dummyjson.com/products/' + productId);
+                let apiResponse = await getProductByIdAPI(productId);
                 setProductData({ ...apiResponse.data });
                 setMainImage(apiResponse.data.images[0]);
             } catch (error) {
@@ -29,45 +34,72 @@ function SingleProduct() {
         }
         getproductData();
 
-        //For Other Products tab
-        const getSimilarProducts = async () => {
-            try {
-                let apiResponse = await axios.get('https://dummyjson.com/products?limit=60&skip=30');
-                setSimilarProducts(apiResponse.data.products);
-            } catch (error) {
-                toast.error(error.message);
-            }
-
-        }
         getSimilarProducts();
         getLoggedInUserId();
 
     }, [productId]);
 
+    const loadCart = async () => {
+        try {
+            let userId = getLoggedInUserId();
+            let apiResponse = await getCartByUserId(userId);
+            const carts = apiResponse.data?.carts || [];
 
+            const cart = carts[0] || { products: [] };
+
+            setGetcart(cart);
+            return cart;
+        } catch (error) {
+            toast.error(error.message);
+        }
+    }
+
+    //For Other Products tab
+    const getSimilarProducts = async () => {
+        try {
+            let apiResponse = await getOtherProductsAPI();
+            setSimilarProducts(apiResponse.data.products);
+        } catch (error) {
+            toast.error(error.message);
+        }
+    }
 
     const Addtocart = async () => {
         try {
-            if (qty <= productData.stock) {
-                let userId = getLoggedInUserId();
-                let totalProducts = {
-                    id: productId, qty: qty
+
+            const userId = getLoggedInUserId();
+            const cart = await loadCart();
+            const existingCart = cart?.products || [];
+
+            // if (productqty > productData.stock) {
+            //     toast.error('Product is out of stock');
+            //     return;
+            // }
+
+            const index = existingCart.findIndex((p) => p.id === productId);
+            console.log(productId);
+            if (index > -1) {
+                if (existingCart[index].quantity + productqty > productData.stock) {
+                    toast.error(`Cannot add more than available stock (${productData.stock})`);
+                    return;
                 }
-                let products = [];
-                products.push(totalProducts);
-                let apiResponse = await axios.post('https://dummyjson.com/carts/add', { userId: userId, products: products });
-                console.log(apiResponse);
-                if (apiResponse.status === 201) {
-                    toast.success("Added to cart");
-                    window.location.href = '/cart';
-                } else {
-                    toast.error("unable to add selected item");
-                }
-            }else{
-                if(qty > productData.qty){
-                    toast.error('Product is out of stock');
-                }
+                existingCart[index].quantity += productqty;
+            } else {
+                existingCart.push({ id: productId, quantity: productqty });
             }
+
+            // Send updated cart to backend
+            const addResponse = await addtoCartByUserId({
+                userId,
+                products: existingCart
+            });
+            if (addResponse.status === 201) {
+                toast.success("Added to cart");
+                setGetcart({ ...getCart, products: existingCart });
+            } else {
+                toast.error("Unable to add item to cart");
+            }
+
         } catch (error) {
             toast.error(error.message);
         }
@@ -134,7 +166,7 @@ function SingleProduct() {
                                     <option value="5">5</option>
                                 </select>
                                 <div className="d-grid gap-2 mt-3">
-                                    <button className="btn btn-warning" onClick={e => Addtocart()}>Add to Cart</button>
+                                    <button className="btn btn-warning" onClick={e => Addtocart()}>Add to cart</button>
                                 </div>
                             </div>
                         </div>
@@ -144,7 +176,7 @@ function SingleProduct() {
                     <div className="row">
                         <div className="col-12">
                             <div className="card p-3">
-                                <h4>Other products</h4>
+                                <h4>Other Products</h4>
                                 <hr />
                                 <div className="card-body d-flex flex-nowrap overflow-auto">
                                     {
@@ -171,7 +203,7 @@ function SingleProduct() {
 
                 </div>
             </div>
-            <ToastContainer autoClose={5000} />
+            <ToastContainer />
             <Footer />
         </div>
     )

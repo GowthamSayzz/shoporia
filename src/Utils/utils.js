@@ -16,17 +16,25 @@ export const getLoggedInUserId = () => {
 }
 
 export const getLoggedInUserName = () => {
-    let userData = localStorage.getItem('userData');
+    let userData = localStorage.getItem('userName');
     userData = JSON.parse(userData);
     return userData.name;
 }
 
 export const getLoggedInEmail = () => {
-    let userData = localStorage.getItem('userData');
+    let userData = localStorage.getItem('userEmail');
     userData = JSON.parse(userData);
     return userData.email;
 }
 
 export const getJWTToken = () => {
     return localStorage.getItem('token');
+}
+
+export const userLoginVerification = () => {
+    let userId = getLoggedInUserId();
+    if(!userId || userId == null){
+        localStorage.clear();
+        return window.location.href = '/signin';
+    }
 }

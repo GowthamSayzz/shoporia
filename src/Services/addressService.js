@@ -6,7 +6,7 @@ export const addressaddAPI = async (data) => {
 }
 
 export const addressviewAPI = async (data) => {
-    return await axiosInstance.post(API_END_POINTS.ADDRESS_VIEW, data);
+    return await axiosInstance.get(API_END_POINTS.ADDRESS_VIEW, data);
 }
 
 export const addressdeleteAPI = async (data) => {
