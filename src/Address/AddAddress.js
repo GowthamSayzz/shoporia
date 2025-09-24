@@ -25,7 +25,7 @@ function AddAddress({addnewAddress}){
     }
 
     const getLocationData = async (lat, long) =>{
-        let apikey = 'AIzaSyAY1cLZkQ8z18FMknelsZKAUMoLhMBUXEA';
+        let apikey = '';
         let apiResponse = await axios.get("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + long + "&key=" + apikey);
         let addressComponents = apiResponse.data.results[0].address_components;
         let city = addressComponents.find(component => component.types.includes("locality")).long_name;
