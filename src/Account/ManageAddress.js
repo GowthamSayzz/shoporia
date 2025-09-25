@@ -1,35 +1,6 @@
 import banner from './Images/PersonalInfoBanner.png';
-import { useEffect, useState } from 'react';
-import { getLoggedInUserId } from '../Utils/utils';
-import axios from 'axios';
-import { toast } from 'react-toastify';
 
 function ManageAddress({ manageaddressdata, profiledata }) {
-
-    const [address, setAddress] = useState({});
-
-    const logoutUser = () => {
-        localStorage.clear();
-        window.location.href = '/signin';
-    }
-
-    useEffect(() => {
-        getAddress();
-    });
-
-    const getAddress = async () => {
-        let userId = getLoggedInUserId();
-        if (!userId || userId == null) {
-            logoutUser();
-        }
-        try {
-            let apiResponse = await axios.get('https://dummyjson.com/users/' + userId);
-            setAddress(apiResponse.data);
-        } catch (error) {
-            toast.error(error.message);
-        }
-    }
-
     return (
         <div className='p-2'>
             <h5 className="mb-3">Manage Address</h5>

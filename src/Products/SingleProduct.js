@@ -4,9 +4,10 @@ import Navbar from '../shared/Navbar';
 import Footer from '../shared/Footer';
 import { SideBySideMagnifier } from "react-image-magnifiers";
 import { ToastContainer, toast } from "react-toastify";
-import { getLoggedInUserId, userLoginVerification } from "../Utils/utils";
+import { getJWTToken, getLoggedInUserId, invalidSession } from "../Utils/utils";
 import { getProductByIdAPI, getOtherProductsAPI } from '../Services/productsService';
 import { getCartByUserId, addtoCartByUserId } from '../Services/cartServices';
+import { Link } from "react-router-dom";
 
 function SingleProduct() {
 
@@ -20,8 +21,12 @@ function SingleProduct() {
     const [getCart, setGetcart] = useState();
 
     useEffect(() => {
-        userLoginVerification();
-        loadCart();
+        let userId = getLoggedInUserId();
+        let token = getJWTToken();
+        if (!userId && token != null) {
+            loadCart();
+        }
+
         //Loads the data when product screen loads
         const getproductData = async () => {
             try {
@@ -35,8 +40,6 @@ function SingleProduct() {
         getproductData();
 
         getSimilarProducts();
-        getLoggedInUserId();
-
     }, [productId]);
 
     const loadCart = async () => {
@@ -66,40 +69,47 @@ function SingleProduct() {
 
     const Addtocart = async () => {
         try {
-
             const userId = getLoggedInUserId();
-            const cart = await loadCart();
-            const existingCart = cart?.products || [];
+            const token = getJWTToken();
 
-            // if (productqty > productData.stock) {
-            //     toast.error('Product is out of stock');
-            //     return;
-            // }
+            if (userId !== null && token !== null) {
+                const cart = await loadCart();
+                const existingCart = cart?.products || [];
 
-            const index = existingCart.findIndex((p) => p.id === productId);
-            console.log(productId);
-            if (index > -1) {
-                if (existingCart[index].quantity + productqty > productData.stock) {
-                    toast.error(`Cannot add more than available stock (${productData.stock})`);
+                if (productqty > productData.stock) {
+                    toast.error('Product is out of stock');
                     return;
                 }
-                existingCart[index].quantity += productqty;
-            } else {
-                existingCart.push({ id: productId, quantity: productqty });
-            }
 
-            // Send updated cart to backend
-            const addResponse = await addtoCartByUserId({
-                userId,
-                products: existingCart
-            });
-            if (addResponse.status === 201) {
-                toast.success("Added to cart");
-                setGetcart({ ...getCart, products: existingCart });
-            } else {
-                toast.error("Unable to add item to cart");
-            }
+                const index = existingCart.findIndex((p) => p.id === productId);
+                if (index > -1) {
+                    if (existingCart[index].quantity + productqty > productData.stock) {
+                        toast.error(`Cannot add more than available stock (${productData.stock})`);
+                        return;
+                    }
+                    existingCart[index].quantity += productqty;
+                } else {
+                    existingCart.push({ id: productId, quantity: productqty });
+                }
 
+                // Send updated cart to backend
+                const addResponse = await addtoCartByUserId({
+                    userId,
+                    products: existingCart
+                });
+                if (addResponse.status === 201) {
+                    toast.success("Added to cart");
+                    setGetcart({ ...getCart, products: existingCart });
+                } else {
+                    toast.error("Unable to add item to cart");
+                }
+            } else if ((userId !== null && token === null) || (userId === null && token !== null)) {
+                toast.error('Invalid Session. Please Login Again');
+                invalidSession();
+            } else {
+                toast.error('Login Needed');
+                invalidSession();
+            }
         } catch (error) {
             toast.error(error.message);
         }
@@ -180,27 +190,28 @@ function SingleProduct() {
                                 <hr />
                                 <div className="card-body d-flex flex-nowrap overflow-auto">
                                     {
-                                        similarProducts.map((similarproductsLoop, i) => {
-                                            const imageUrl = similarproductsLoop.thumbnail && similarproductsLoop.images && similarproductsLoop.images.length > 0 ? similarproductsLoop.thumbnail : null;
-                                            if (!imageUrl) return null;
+                                        similarProducts.map((similarproductsLoop) => {
+                                            if (!similarproductsLoop.thumbnail) return null;
 
                                             return (
-                                                <div key={i} className="me-3">
-                                                    <img src={imageUrl}
-                                                        alt={similarproductsLoop?.title}
-                                                        style={{ width: "150px", height: "150px", objectFit: "contain" }}
-                                                    />
+                                                <div key={similarproductsLoop.id} className="me-3">
+                                                    <Link to={`/products/${similarproductsLoop.id}`} target="_blank" rel="noopener noreferrer">
+                                                        <img src={similarproductsLoop?.thumbnail}
+                                                            alt={similarproductsLoop?.title}
+                                                            style={{ width: "150px", height: "150px", objectFit: "contain" }}
+                                                        />
+                                                    </Link>
                                                     <h6 className="mt-3">{similarproductsLoop?.title}</h6>
-                                                    <h6 className="mt-3 badge text-bg-success">{similarproductsLoop?.rating} <i className="i bi-star-fill text-sm"></i></h6>
+                                                    <h6 className="mt-3 badge text-bg-success"><i className="i bi-star-fill text-sm"></i> {similarproductsLoop?.rating}</h6>
                                                     <h6><i className="i bi-currency-rupee fs-6"></i>{similarproductsLoop?.price}</h6>
-                                                </div>)
+                                                </div>
+                                            )
                                         })
                                     }
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
             <ToastContainer />

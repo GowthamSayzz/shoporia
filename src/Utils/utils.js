@@ -4,7 +4,7 @@ export const isEmailValid = (email) => {
     return emailRegex.test(email);
 }
 
-export const checkUserLoginStatus = () =>{
+export const checkUserLoginStatus = () => {
     let loggedInStatus = localStorage.getItem('isLoggedIn');
     return loggedInStatus === 'true';
 }
@@ -28,13 +28,18 @@ export const getLoggedInEmail = () => {
 }
 
 export const getJWTToken = () => {
-    return localStorage.getItem('token');
+    return localStorage.getItem('access_token');
 }
 
-export const userLoginVerification = () => {
-    let userId = getLoggedInUserId();
-    if(!userId || userId == null){
+export const invalidSession = () => {
+    return setTimeout(() => {
         localStorage.clear();
-        return window.location.href = '/signin';
-    }
+        window.location.href = '/signin';
+    }, 5000);
+}
+
+export const timeoutSession = () => {
+    return setTimeout(() => {
+        window.location.href = '/';
+    }, 4000);
 }

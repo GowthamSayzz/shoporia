@@ -71,16 +71,44 @@ function HomeSection() {
             <div className='container mt-3'>
                 <div className='row'>
                     <div className='col-10 shadow'>
-                        <div className='card-body d-flex flex-nowrap overflow-auto p-4'>
-                            {
-                                getPhones.map((phones, i) => (
-                                    <div key={i}>
-                                        <img src={phones.thumbnail} alt='mobile-phones' style={{ height: '200px', width: '200px', objectFit: 'contain' }} />
-                                        <h6 className='text-center mt-3'>{phones.title}</h6>
-                                        <h6 className='text-center mt-1'>From <span><i className="i bi-currency-rupee"></i>{phones.price}*</span></h6>
+                        <div id="phonesCarousel" className="carousel slide" data-bs-interval="3000" data-bs-ride="carousel" data-bs-pause="false">
+                            <div className="carousel-inner">
+                                {getPhones.reduce((rows, phone, index) => {
+                                    const chunkIndex = Math.floor(index / 4);
+                                    if (!rows[chunkIndex]) rows[chunkIndex] = [];
+                                    rows[chunkIndex].push(phone);
+                                    return rows;
+                                }, []).map((group, i) => (
+                                    <div key={i} className={`carousel-item ${i === 0 ? 'active' : ''}`}>
+                                        <div className="d-flex justify-content-center mt-4">
+                                            {group.map((phone, j) => (
+                                                <div key={j} className="card me-3" style={{ width: '200px' }}>
+                                                    <img
+                                                        src={phone.thumbnail}
+                                                        className="card-img-top pt-3"
+                                                        alt={phone.title}
+                                                        style={{ height: '200px', objectFit: 'contain' }}
+                                                    />
+                                                    <div className="card-body text-center">
+                                                        <h6 className="card-title">{phone.title}</h6>
+                                                        <h6 className="card-text">
+                                                            From <i className="bi bi-currency-rupee"></i>{phone.price}*
+                                                        </h6>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
                                     </div>
-                                ))
-                            }
+                                ))}
+                            </div>
+                            <button className="carousel-control-prev" type="button" data-bs-target="#phonesCarousel" data-bs-slide="prev">
+                                <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span className="visually-hidden">Previous</span>
+                            </button>
+                            <button className="carousel-control-next" type="button" data-bs-target="#phonesCarousel" data-bs-slide="next">
+                                <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span className="visually-hidden">Next</span>
+                            </button>
                         </div>
                     </div>
                     <div className='col-2'>
@@ -94,7 +122,7 @@ function HomeSection() {
             <div className='container mt-3 shadow border'>
                 <div className='row'>
                     <h6 className='fs-4 mt-3 mb-3'>Featured Products</h6>
-                    <div id="brandsCarousel" className="carousel slide" data-bs-ride="carousel" data-bs-interval="3000" data-bs-pause="false">
+                    <div id="brandsCarousel" className="carousel slide" data-bs-interval="3000" data-bs-ride="carousel" data-bs-pause="false">
                         <div className="carousel-inner">
                             <div className="carousel-item active mb-3">
                                 <div className="d-flex justify-content-start">

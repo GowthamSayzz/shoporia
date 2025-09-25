@@ -25,14 +25,13 @@ function PersonalInformation({ profiledata }) {
                         <strong className='form-label'>Birth Date</strong>
                         <input type='text' className='form-control' placeholder='Your Birth Date' value={profiledata.birthDate || ''} readOnly />
                     </div>
-                    {/* <div className='mb-3'>
-                        <strong className="form-check-label me-3" for="radioDefault1">Gender</strong>
-
-                        <input className="form-check-input me-2" type="radio" name="gender" id="male" value='male' checked={profiledata.gender === 'male'} />
+                    <div className='mb-3'>
+                        <strong className="form-check-label me-3" htmlFor="radioDefault1">Gender</strong>
+                        <input className="form-check-input me-2" type="radio" name="gender" id="male" value='male' checked={profiledata.gender === 'male'} readOnly/>
                         <strong className="form-check-label me-4">Male</strong>
-                        <input className="form-check-input me-2" type="radio" name="gender" id="male" value='female' checked={profiledata.gender === 'female'} />
+                        <input className="form-check-input me-2" type="radio" name="gender" id="female" value='female' checked={profiledata.gender === 'female'} readOnly/>
                         <strong className="form-check-label me-2">Female</strong>
-                    </div> */}
+                    </div>
                 </div>
             }
             <div className='mt-4'>

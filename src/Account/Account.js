@@ -45,7 +45,6 @@ function Account() {
                 );
                 setUserName(apiResponse.data);
                 setSavedCards(apiResponse.data.bank);
-                console.log(apiResponse.data.address);
                 setManageAddress(apiResponse.data.address);
                 
             } catch (error) {

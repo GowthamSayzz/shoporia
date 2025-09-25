@@ -49,6 +49,7 @@ function SignIn() {
                     localStorage.setItem("access_token", apiResponse.data.accessToken);
                     localStorage.setItem('userId', apiResponse.data.id);
                     localStorage.setItem("isLoggedIn", "true");
+                    localStorage.setItem('userName', apiResponse.data.firstName);
                     window.location.href = "/";
                     toast.success('Login Success');
                 }
