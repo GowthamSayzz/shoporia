@@ -11,8 +11,8 @@ function Product({ data }) {
                 </div>
                 <div className='col-8'>
                     <div className='card-body'>
-                        <Link to={"/product/" + data.id} target="_blank" rel="noreferrer">
-                            <h5 className='card-title'>{data.title}</h5>
+                        <Link to={"/product/" + data.id} target="_blank" rel="noreferrer" className="text-decoration-none">
+                            <h5 className='card-title text-dark'>{data.title}</h5>
                         </Link>
                         <div>
                             <h5 className='card-title'><i className="bi bi-currency-rupee"></i>{data.price}</h5>

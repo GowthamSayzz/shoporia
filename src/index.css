@@ -54,3 +54,12 @@ body{
     margin-top: 10px;
     color: #212121;
 }
+
+.product-card {
+  transition: transform 0.1s ease;
+}
+
+.product-card:hover {
+  transform: scale(1.15);
+  z-index: 2;
+}

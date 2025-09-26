@@ -85,7 +85,7 @@ function HomeSection() {
                                                 <div key={j} className="card me-3" style={{ width: '200px' }}>
                                                     <img
                                                         src={phone.thumbnail}
-                                                        className="card-img-top pt-3"
+                                                        className="card-img-top pt-3 product-card"
                                                         alt={phone.title}
                                                         style={{ height: '200px', objectFit: 'contain' }}
                                                     />
@@ -126,28 +126,28 @@ function HomeSection() {
                         <div className="carousel-inner">
                             <div className="carousel-item active mb-3">
                                 <div className="d-flex justify-content-start">
-                                    <img src={banner9} className="img-fluid me-2" style={{ width: '312px' }} alt="brand1" />
-                                    <img src={banner10} className="img-fluid me-2" style={{ width: '312px' }} alt="brand2" />
-                                    <img src={banner11} className="img-fluid me-2" style={{ width: '312px' }} alt="brand3" />
-                                    <img src={banner12} className="img-fluid me-2" style={{ width: '312px' }} alt="brand4" />
+                                    <img src={banner9} className="img-fluid me-2 product-card" style={{ width: '312px' }} alt="brand1" />
+                                    <img src={banner10} className="img-fluid me-2 product-card" style={{ width: '312px' }} alt="brand2" />
+                                    <img src={banner11} className="img-fluid me-2 product-card" style={{ width: '312px' }} alt="brand3" />
+                                    <img src={banner12} className="img-fluid me-2 product-card" style={{ width: '312px' }} alt="brand4" />
                                 </div>
                             </div>
 
                             <div className="carousel-item mb-3">
                                 <div className="d-flex justify-content-start">
-                                    <img src={banner13} className="img-fluid me-2" style={{ width: '312px' }} alt="brand1" />
-                                    <img src={banner14} className="img-fluid me-2" style={{ width: '312px' }} alt="brand2" />
-                                    <img src={banner15} className="img-fluid me-2" style={{ width: '312px' }} alt="brand3" />
-                                    <img src={banner16} className="img-fluid me-2" style={{ width: '312px' }} alt="brand4" />
+                                    <img src={banner13} className="img-fluid me-2 product-card" style={{ width: '312px' }} alt="brand1" />
+                                    <img src={banner14} className="img-fluid me-2 product-card" style={{ width: '312px' }} alt="brand2" />
+                                    <img src={banner15} className="img-fluid me-2 product-card" style={{ width: '312px' }} alt="brand3" />
+                                    <img src={banner16} className="img-fluid me-2 product-card" style={{ width: '312px' }} alt="brand4" />
                                 </div>
                             </div>
 
                             <div className="carousel-item mb-3">
                                 <div className="d-flex justify-content-start">
-                                    <img src={banner17} className="img-fluid me-2" style={{ width: '312px' }} alt="brand1" />
-                                    <img src={banner18} className="img-fluid me-2" style={{ width: '312px' }} alt="brand1" />
-                                    <img src={banner19} className="img-fluid me-2" style={{ width: '312px' }} alt="brand1" />
-                                    <img src={banner20} className="img-fluid me-2" style={{ width: '312px' }} alt="brand1" />
+                                    <img src={banner17} className="img-fluid me-2 product-card" style={{ width: '312px' }} alt="brand1" />
+                                    <img src={banner18} className="img-fluid me-2 product-card" style={{ width: '312px' }} alt="brand1" />
+                                    <img src={banner19} className="img-fluid me-2 product-card" style={{ width: '312px' }} alt="brand1" />
+                                    <img src={banner20} className="img-fluid me-2 product-card" style={{ width: '312px' }} alt="brand1" />
                                 </div>
                             </div>
                         </div>

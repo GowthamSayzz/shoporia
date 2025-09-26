@@ -147,18 +147,18 @@ function NavBar() {
                                     {
                                         isUserLoggedIn === false &&
                                         <ul className="dropdown-menu">
-                                            <li><Link className="dropdown-item mb-1 fs-5" to="/signin"><i className='bi bi-door-open-fill me-2 text-success'></i>Sign In</Link></li>
-                                            <li><Link className="dropdown-item mb-1 fs-5" to="/signup"><i className='bi bi-person-plus-fill me-2 text-primary'></i>New Customer? <span className="text-primary">Start here</span></Link></li>
+                                            <li><Link className="dropdown-item fs-5 border-bottom" to="/signin"><i className='bi bi-door-open-fill me-2 text-success'></i>Sign In</Link></li>
+                                            <li><Link className="dropdown-item fs-5" to="/signup"><i className='bi bi-person-plus-fill me-2 text-primary'></i>Sign Up ? <span className="text-primary">Start here</span></Link></li>
                                         </ul>
                                     }
                                     {
                                         isUserLoggedIn === true &&
                                         <ul className="dropdown-menu">
-                                            <li><Link className="dropdown-item mb-1 fs-5" to="/account"><i className='bi bi-person-check-fill me-2 text-primary'></i>Account</Link></li>
-                                            <li><Link className="dropdown-item mb-1 fs-5" to="/orders"><i className='bi bi-box-seam-fill me-2 text-danger'></i>My Orders</Link></li>
-                                            <li><Link className="dropdown-item mb-1 fs-5" to="/wishlist"><i className='bi bi-heart-fill me-2 text-dark-emphasis'></i>Wishlist</Link></li>
-                                            <li><Link className="dropdown-item mb-1 fs-5" to="/help"><i className='bi bi-patch-question-fill me-2 text-warning'></i>Help</Link></li>
-                                            <li><Link className="dropdown-item mb-1 fs-5" to='/' onClick={e => logoutUser()}><i className='bi bi-box-arrow-right me-2 text-danger'></i>Logout</Link></li>
+                                            <li><Link className="dropdown-item fs-5 border-bottom" to="/account"><i className='bi bi-person-check-fill me-2 text-primary'></i>Account</Link></li>
+                                            <li><Link className="dropdown-item fs-5 border-bottom" to="/orders"><i className='bi bi-box-seam-fill me-2 text-danger'></i>My Orders</Link></li>
+                                            <li><Link className="dropdown-item fs-5 border-bottom" to="/wishlist"><i className='bi bi-heart-fill me-2 text-dark-emphasis'></i>Wishlist</Link></li>
+                                            <li><Link className="dropdown-item fs-5 border-bottom" to="/help"><i className='bi bi-patch-question-fill me-2 text-warning'></i>Help</Link></li>
+                                            <li><Link className="dropdown-item fs-5" to='/' onClick={e => logoutUser()}><i className='bi bi-box-arrow-right me-2 text-danger'></i>Logout</Link></li>
                                         </ul>
                                     }
                                 </div>

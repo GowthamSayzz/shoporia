@@ -5,9 +5,13 @@ import Footer from '../shared/Footer';
 import { SideBySideMagnifier } from "react-image-magnifiers";
 import { ToastContainer, toast } from "react-toastify";
 import { getJWTToken, getLoggedInUserId, invalidSession } from "../Utils/utils";
-import { getProductByIdAPI, getOtherProductsAPI } from '../Services/productsService';
+import { getProductByIdAPI, getOtherProductsAPI, getAllProductsAPI } from '../Services/productsService';
 import { getCartByUserId, addtoCartByUserId } from '../Services/cartServices';
-import { Link } from "react-router-dom";
+import productReturn from './Images/product-return.png';
+import freeDelivery from './Images/free-delivery.png';
+import secure from './Images/secure.png';
+import emi from './Images/EMI.png';
+import unknownUser from './Images/unknowunuser.png';
 
 function SingleProduct() {
 
@@ -19,6 +23,17 @@ function SingleProduct() {
     const [productqty, setQty] = useState(1);
 
     const [getCart, setGetcart] = useState();
+    const [breadcrumb, setBreadcrumb] = useState([]);
+
+    const originalPrice = productData?.price; // 36999.99
+    const discount = productData?.discountPercentage; // 16.44
+
+    // Calculate discounted price
+    const discountedPrice = (originalPrice * (100 - discount)) / 100;
+
+    // Optionally, round to 2 decimal places
+    const finalPrice = discountedPrice.toFixed(2);
+
 
     useEffect(() => {
         let userId = getLoggedInUserId();
@@ -37,8 +52,30 @@ function SingleProduct() {
                 toast.error(error.message);
             }
         }
-        getproductData();
 
+        const breadCrumbFlow = async () => {
+            try {
+                let apiResponse = await getAllProductsAPI();
+                const products = apiResponse.data.products;
+                if (!products || products.length === 0) return;
+                const product = products.find(p => p.id === parseInt(productId));
+                if (!product) return;
+                const breadCrumbData = [
+                    "Home",
+                    //product.category,
+                    ...(product.tags || []),
+                    product.brand,
+                    //product.title
+                ].filter(Boolean);
+
+                setBreadcrumb(breadCrumbData);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        getproductData();
+        breadCrumbFlow();
         getSimilarProducts();
     }, [productId]);
 
@@ -61,7 +98,8 @@ function SingleProduct() {
     const getSimilarProducts = async () => {
         try {
             let apiResponse = await getOtherProductsAPI();
-            setSimilarProducts(apiResponse.data.products);
+            const shuffleProducts = apiResponse.data.products.sort(() => 0.5 - Math.random());
+            setSimilarProducts(shuffleProducts);
         } catch (error) {
             toast.error(error.message);
         }
@@ -154,14 +192,56 @@ function SingleProduct() {
                         </div>
                     </div>
                     <div className="col-4">
+                        <p className="breadcrumb text-capitalize">
+                            {breadcrumb.map((item, index) => (
+                                <span key={index}>
+                                    {item}{" "}
+                                    {index < breadcrumb.length - 1 && <i className="bi bi-caret-right-fill mx-1"></i>}
+                                </span>
+                            ))}
+                        </p>
                         {productData != null && <h3>{productData.title}</h3>}
                         <div>
-                            <h5 className="fs-6 badge text-bg-success">{productData != null && productData.rating} <i className="i bi-star-fill"></i></h5>
-                            <h3><i className="i bi-currency-rupee fs-4"></i>{productData != null && productData.price}</h3>
-                            <h3 className="fs-5">In Stock: {productData != null && productData.stock}</h3>
+                            <span className="badge rounded-pill text-bg-success px-2 py-1 small mb-2">{productData?.rating} <i className="bi bi-star-fill"></i></span>
+                            <h6 className="ms-1">
+                                {productData &&
+                                    `${productData.reviews.length} Reviews & ${(productData.reviews.reduce((sum, r) => sum + r.rating, 0) / productData.reviews.length).toFixed(1)
+                                    } Ratings`}
+                            </h6>
+                            {/* <h3><i className="i bi-currency-rupee fs-4"></i>{productData != null && productData.price}</h3> */}
+                            <div>
+                                <span className="text-muted text-decoration-line-through me-3 fs-4">₹{originalPrice?.toLocaleString()}</span>
+                                <span className="fw-bold text-danger fs-4">₹{finalPrice?.toLocaleString()}</span>
+                                <span className="ms-2 badge bg-success fs-6">{discount}% OFF</span>
+                            </div>
+                            <h3 className="fs-5">Available Stock: {productData != null && productData.stock}</h3>
                             <h3 className="fs-5">{productData != null && productData.shippingInformation}</h3>
                             <h3 className="fs-5"><i className="bi bi-truck"></i> {productData != null && productData.returnPolicy}</h3>
                             <h3 className="fs-6">Product Description: {productData != null && productData.description}</h3>
+                        </div>
+                        <div className="row mt-3">
+                            <div className="card border-0">
+                                <div className="card-body text-center">
+                                    <div className="row">
+                                        <div className="col-3 product-card">
+                                            <img src={freeDelivery} alt="return-image" style={{ height: '50px', width: '50px' }} />
+                                            <p className="mt-2 mb-0 small fw-medium">Free Delivery</p>
+                                        </div>
+                                        <div className="col-3 product-card">
+                                            <img src={secure} alt="return-image" style={{ height: '50px', width: '50px' }} />
+                                            <p className="mt-2 mb-0 small fw-medium">Secure Payments</p>
+                                        </div>
+                                        <div className="col-3 product-card">
+                                            <img src={productReturn} alt="return-image" style={{ height: '50px', width: '50px' }} />
+                                            <p className="mt-2 mb-0 small fw-medium">Easy Returns</p>
+                                        </div>
+                                        <div className="col-3 product-card">
+                                            <img src={emi} alt="return-image" style={{ height: '50px', width: '50px' }} />
+                                            <p className="mt-2 mb-0 small fw-medium">EMI Options</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div className="col-3">
@@ -187,26 +267,51 @@ function SingleProduct() {
                         <div className="col-12">
                             <div className="card p-3">
                                 <h4>Other Products</h4>
-                                <hr />
                                 <div className="card-body d-flex flex-nowrap overflow-auto">
                                     {
                                         similarProducts.map((similarproductsLoop) => {
                                             if (!similarproductsLoop.thumbnail) return null;
 
                                             return (
-                                                <div key={similarproductsLoop.id} className="me-3">
-                                                    <Link to={`/products/${similarproductsLoop.id}`} target="_blank" rel="noopener noreferrer">
-                                                        <img src={similarproductsLoop?.thumbnail}
-                                                            alt={similarproductsLoop?.title}
-                                                            style={{ width: "150px", height: "150px", objectFit: "contain" }}
-                                                        />
-                                                    </Link>
-                                                    <h6 className="mt-3">{similarproductsLoop?.title}</h6>
-                                                    <h6 className="mt-3 badge text-bg-success"><i className="i bi-star-fill text-sm"></i> {similarproductsLoop?.rating}</h6>
-                                                    <h6><i className="i bi-currency-rupee fs-6"></i>{similarproductsLoop?.price}</h6>
+                                                <div key={similarproductsLoop.id} className="me-3 border rounded">
+                                                    <img src={similarproductsLoop?.thumbnail}
+                                                        alt={similarproductsLoop?.title}
+                                                        style={{ width: "150px", height: "150px", objectFit: "contain" }}
+                                                        className="product-card"
+                                                    />
+                                                    <h6 className="mt-3 text-center">{similarproductsLoop?.title}</h6>
+                                                    {/* <h6 className="mt-3 badge text-bg-success"><i className="i bi-star-fill text-sm"></i> {similarproductsLoop?.rating}</h6> */}
+                                                    <h6 className="text-center"><i className="i bi-currency-rupee fs-6"></i>{similarproductsLoop?.price}</h6>
                                                 </div>
                                             )
                                         })
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="container mt-3">
+                    <div className="row">
+                        <div className="col-12">
+                            <div className="card">
+                                <h4 className="ms-3 mt-3">Customers say</h4>
+                                <div className="card-body d-grid">
+                                    {
+                                        productData?.reviews?.map((productReviews, i) => (
+                                            <div key={i} className="me-3">
+                                                <div className="card card-body mt-2 product-card">
+                                                    <h6><img src={unknownUser} className="rounded-circle me-2" alt="unknown user" style={{ height: '30px', width: '30px' }} />{productReviews.reviewerName}</h6>
+                                                    <h6>Rating: {"⭐".repeat(productReviews.rating)}</h6>
+                                                    <h6>Reviewed in India on {new Date(productReviews.date).toLocaleDateString("en-GB", {
+                                                        day: "2-digit",
+                                                        month: "short",
+                                                        year: "numeric",
+                                                    })}</h6>
+                                                    <h6>Reviewer Comments: {productReviews.comment}</h6>
+                                                </div>
+                                            </div>
+                                        ))
                                     }
                                 </div>
                             </div>

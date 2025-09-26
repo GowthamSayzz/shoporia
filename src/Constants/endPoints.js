@@ -32,7 +32,8 @@ export const API_END_POINTS = {
      */
 
     GET_SINGLE_CART: '/carts/user',
-    ADD_TO_CART: '/carts/add'
-
+    ADD_TO_CART: '/carts/add',
+    UPDATE_CART: '/carts',
+    DELETE_CART: '/carts'
 
 }

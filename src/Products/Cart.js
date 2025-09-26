@@ -5,6 +5,7 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import { getLoggedInUserId, timeoutSession } from "../Utils/utils";
 import emptyCart from './Images/emptyCart1.png';
+import { deleteProductInCart, getCartByUserId } from "../Services/cartServices";
 
 function Cart() {
 
@@ -115,7 +116,8 @@ function Cart() {
 
     const deleteProduct = async (product) => {
         try {
-            let apiResponse = await axios.delete(`https://dummyjson.com/products/${product.id}`);
+            console.log(product, 'from delete api');
+            let apiResponse = await deleteProductInCart(product.id);
             if (apiResponse.status === 200) {
                 setCartData(prev => prev.filter(p => p.id !== product.id));
                 toast.success("Product deleted successfully!");
@@ -149,8 +151,8 @@ function Cart() {
     useEffect(() => {
         const getCartData = async () => {
             try {
-                let userId = getLoggedInUserId(); //userId hardcoded due to API limitations
-                let apiResponse = await axios.get('https://dummyjson.com/carts/user/' + userId)
+                let userId = getLoggedInUserId();
+                let apiResponse = await getCartByUserId(userId);
                 setCartData([...apiResponse.data.carts]);
             } catch (error) {
                 toast.error(error.message);
@@ -167,7 +169,7 @@ function Cart() {
                 {
                     (cartData === null || cartData.length === 0) && (
                         <div className="text-center">
-                            <img src={emptyCart} alt="empty-cart" className="mt-5 mb-3" style={{ height: '180px', width: '280px' }} />
+                            <img src={emptyCart} alt="empty-cart" className="mt-5 mb-3" style={{ height: '300px', width: '300px' }} />
                             <p>Your cart is empty!!</p>
                             <p>Explore our wide selection and find something you like</p>
                         </div>

@@ -96,12 +96,6 @@ function Account() {
                                     <div className="text-uppercase">
                                         <h6 className="text-start fs-5"><i className="bi bi-wallet2 me-1"></i> Payments</h6>
                                     </div>
-                                    <div className="text-center account account-div-height">
-                                        <Link to="/profile" className="d-inline-flex pt-1 link-underline link-underline-opacity-0">Gift Cards</Link>
-                                    </div>
-                                    <div className="account text-center account-div-height">
-                                        <Link to="/profile" className="d-inline-flex pt-1 link-underline link-underline-opacity-0">UPI</Link>
-                                    </div>
                                     <div className="account text-center account-div-height" onClick={() => setActiveTabs('savedcards')}>
                                         <Link className="d-inline-flex pt-1 link-underline link-underline-opacity-0">Saved Cards</Link>
                                     </div>
