@@ -119,7 +119,6 @@ function NavBar() {
                             <li className="nav-item fs-5"><Link to="/" className="nav-link">Home</Link></li>
                             <li className="nav-item fs-5"><Link to="/product-search" className="nav-link">Products</Link></li>
                             <li className="nav-item fs-5"><Link to="/deals" className="nav-link">Deals</Link></li>
-                            <li className="nav-item fs-5"><Link to="/contact" className="nav-link">Contact Us</Link></li>
                             {
                                 isUserLoggedIn === true &&
                                 <div>

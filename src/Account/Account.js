@@ -101,7 +101,7 @@ function Account() {
                                     </div>
                                 </div>
 
-                                <hr />
+                                {/* <hr /> For Site Development Code Commented
 
                                 <div className="mt-4">
                                     <div className="text-uppercase">
@@ -119,7 +119,7 @@ function Account() {
                                     <div className="account text-center account-div-height">
                                         <Link to="/profile" className="d-inline-flex pt-1 link-underline link-underline-opacity-0">My Wishlist</Link>
                                     </div>
-                                </div>
+                                </div> */}
 
                                 <hr />
                                 <div className="mt-4">

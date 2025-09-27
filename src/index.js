@@ -17,6 +17,10 @@ import Address from './Address/Addresses.js';
 import "react-toastify/dist/ReactToastify.css";
 import Cart from './Products/Cart.js';
 import Account from './Account/Account.js';
+import Deals from './shared/Deals.js';
+import MyOrders from './Account/MyOrders.js';
+import Wishlist from './Account/Wishlist.js'
+import Help from './Account/Help.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -32,6 +36,10 @@ root.render(
         <Route path='/product/:productId' Component={SingleProduct} />
         <Route path='/cart' Component={Cart} />
         <Route path='/account' Component={Account} />
+        <Route path='/deals' Component={Deals} />
+        <Route path='/orders' Component={MyOrders} />
+        <Route path='/wishlist' Component={Wishlist} />
+        <Route path='/help' Component={Help} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
