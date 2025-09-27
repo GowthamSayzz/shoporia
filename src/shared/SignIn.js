@@ -63,9 +63,9 @@ function SignIn() {
     return (
         <div className="container">
             <div className="row justify-content-center">
-                <div className="col-4">
-                    <div className='text-center'>
-                        <img src={LogoNoBg} alt='Logo' className='logo-img' />
+                <div className="col-12 col-sm-8 col-md-6 col-lg-4">
+                    <div className='text-center mb-3'>
+                        <img src={LogoNoBg} alt='Logo' className='img-fluid mt-3' style={{ maxWidth: "150px" }} />
                     </div>
                     <div className='card mt-3'>
                         <div className='card-body'>
@@ -90,30 +90,28 @@ function SignIn() {
                                     }
                                 </div>
                             </div>
-                            <div className='row d-flex'>
-                                <div className='text-primary mt-2 col-6'>
+                            <div className='row mt-3'>
+                                <div className='col-6 text-start'>
                                     <Link to='/forgot-password' className='link-offset-2 link-underline link-underline-opacity-0'>Forgot Password</Link>
                                 </div>
-                                <div className='text-primary mt-2 col-6 text-end'>
+                                <div className='col-6 text-end'>
                                     <Link to='/signup' className='link-offset-2 link-underline link-underline-opacity-0'>Create Account</Link>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
             </div>
             <hr className='mt-5' />
             <div className='row justify-content-center mt-3'>
-                <div className='col-4 text-center'>
-                    <div className='row mt-3'>
-                        <div className='col-4'><Link to='/' className='link-offset-2 link-underline link-underline-opacity-0'>Conditions of use</Link></div>
-                        <div className='col-4'><Link to='/' className='link-offset-2 link-underline link-underline-opacity-0'>Privacy of use</Link></div>
-                        <div className='col-4'><Link to='/' className='link-offset-2 link-underline link-underline-opacity-0'>Help</Link></div>
+                <div className='col-12 col-md-8 text-center'>
+                    <div className='row'>
+                        <div className='col-12 col-sm-4 mb-2'><Link to='/' className='link-offset-2 link-underline link-underline-opacity-0'>Conditions of use</Link></div>
+                        <div className='col-12 col-sm-4 mb-2'><Link to='/' className='link-offset-2 link-underline link-underline-opacity-0'>Privacy of use</Link></div>
+                        <div className='col-12 col-sm-4 mb-2'><Link to='/' className='link-offset-2 link-underline link-underline-opacity-0'>Help</Link></div>
                     </div>
                 </div>
-                <div className='mt-3 text-center'>
+                <div className='col-12 mt-3 text-center'>
                     &copy; 2025, Shoporia.in, Inc. or its affiliates
                 </div>
             </div>

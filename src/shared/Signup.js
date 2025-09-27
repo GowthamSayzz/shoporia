@@ -70,13 +70,13 @@ function Signup() {
     return (
         <div className="container">
             <div className="row justify-content-center">
-                <div className="col-4">
-                    <div className='text-center'>
-                        <img src={LogoNoBg} alt='Logo' className='logo-img' />
+                <div className="col-12 col-sm-8 col-md-6 col-lg-4">
+                    <div className='text-center mb-3'>
+                        <img src={LogoNoBg} alt='Logo' className='img-fluid mt-3' style={{ maxWidth: "150px" }}/>
                     </div>
                     <div className='card mt-3'>
                         <div className='card-body'>
-                            <h3>Create Account</h3>
+                            <h3 className='mb-3'>Create Account</h3>
                             <div className='mb-2'>
                                 <strong className='form-label'>Your name</strong>
                                 <input type='text' className='form-control' placeholder='Your Name' onChange={e => updateName(e)} />
@@ -106,7 +106,7 @@ function Signup() {
                             </div>
                             <hr />
                             <div className='mt-4'>
-                                <label className='form-label'>Already have an account? <Link to='/' className='link-offset-2 link-underline link-underline-opacity-0'>Sign In<i className="bi bi-caret-right-fill fs-6"></i></Link></label>
+                                <label className='form-label'>Already have an account? <Link to='/signin' className='link-offset-2 link-underline link-underline-opacity-0'>Sign In<i className="bi bi-caret-right-fill fs-6"></i></Link></label>
                             </div>
                             <div className='mt-3'>
                                 By creating an account for logging in, you are agree to Shoporia's <Link to='/' className='link-offset-2 link-underline link-underline-opacity-0'>Conditions of Use</Link> and <Link to='/' className='link-offset-2 link-underline link-underline-opacity-0'>Privacy policy</Link>
@@ -117,14 +117,14 @@ function Signup() {
             </div>
             <hr className='mt-5' />
             <div className='row justify-content-center mt-3'>
-                <div className='col-4 text-center'>
-                    <div className='row mt-3'>
-                        <div className='col-4'><Link to='/' className='link-offset-2 link-underline link-underline-opacity-0'>Conditions of use</Link></div>
-                        <div className='col-4'><Link to='/' className='link-offset-2 link-underline link-underline-opacity-0'>Privacy of use</Link></div>
-                        <div className='col-4'><Link to='/' className='link-offset-2 link-underline link-underline-opacity-0'>Help</Link></div>
+                <div className='col-12 col-md-8 text-center'>
+                    <div className='row'>
+                        <div className='col-12 col-sm-4 mb-2'><Link to='/' className='link-offset-2 link-underline link-underline-opacity-0'>Conditions of use</Link></div>
+                        <div className='col-12 col-sm-4 mb-2'><Link to='/' className='link-offset-2 link-underline link-underline-opacity-0'>Privacy of use</Link></div>
+                        <div className='col-12 col-sm-4 mb-2'><Link to='/' className='link-offset-2 link-underline link-underline-opacity-0'>Help</Link></div>
                     </div>
                 </div>
-                <div className='mt-3 text-center'>
+                <div className='col-12 mt-3 text-center'>
                     &copy; 2025, Shoporia.in, Inc. or its affiliates
                 </div>
             </div>

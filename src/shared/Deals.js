@@ -7,9 +7,9 @@ function Deals() {
         <div>
             <NavBar />
             <div className='container shoporia-mt'>
-                <div className='text-center'>
-                    <img src={progress} alt="in-progress" style={{ height: '300px', width: '300px' }} />
-                    <p className='fw-bold mt-2'>Page Development In Progress. Stay Tuned!!</p>
+                <div className='d-flex flex-column justify-content-center align-items-center text-center' style={{ minHeight: "70vh" }}>
+                    <img src={progress} alt="in-progress" className='img-fluid' style={{ height: 'auto', maxwidth: '300px' }} />
+                    <p className='fw-bold mt-3'>Page Development In Progress. Stay Tuned!!</p>
                 </div>
             </div>
             <Footer />

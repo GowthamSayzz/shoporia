@@ -66,22 +66,24 @@ function Search() {
             <Navbar />
             <div className='container-fluid shoporia-mt'>
                 <div className='row mt-4'>
-                    <div className='col-3'>
+                    <div className='col-12 col-md-3 mb-4 mb-md-0'>
                         <div className='card card-body'>
                             <div className='card-title'>
                                 <h5 className='fs-5'>Category</h5>
                             </div>
                             {
                                 categories.map((category) => (
-                                    <label key={category.name}>
+                                    <div key={category.name} className='form-check'>
                                         <input
                                             type="checkbox"
                                             checked={selectedCategories.includes(category.name)}
                                             onChange={() => handleCheckboxChange(category.name)}
-                                            className='me-2'
+                                            className='form-check-input me-2'
                                         />
-                                        {category.name}
-                                    </label>
+                                        <label htmlFor={`cat-${category.name}`} className='form-check-label'>
+                                    {category.name}
+                                </label>
+                                    </div>
                                 ))
                             }
                             <div style={{ marginTop: "20px" }}>

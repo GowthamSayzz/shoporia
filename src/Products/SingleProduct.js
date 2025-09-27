@@ -158,7 +158,7 @@ function SingleProduct() {
             <Navbar />
             <div className='container shoporia-mt'>
                 <div className='row mt-4'>
-                    <div className="col-5">
+                    <div className="col-12 col-md-5 mb-4 mb-md-0">
                         <div className="row">
                             {/* Left column - Thumbnails */}
                             <div className="col-2 d-flex flex-column align-items-start">
@@ -166,10 +166,10 @@ function SingleProduct() {
                                     <div key={i} className="mb-2">
                                         <img
                                             src={image}
-                                            className="img-thumbnail shoporia-pointer"
+                                            className="img-thumbnail shoporia-pointer img-fluid"
                                             onMouseOver={() => setMainImage(image)}
                                             alt="image-shoporia-cursor"
-                                            style={{ width: "60px", height: "60px", objectFit: "cover" }} // adjust size
+                                            style={{ maxwidth: "60px", height: "auto", objectFit: "cover" }} // adjust size
                                         />
                                     </div>
                                 ))}
@@ -185,13 +185,13 @@ function SingleProduct() {
                                         zoomPosition="right"
                                         zoomContainerBorder="1px solid #ccc"
                                         zoomContainerBoxShadow="0 4px 8px rgba(0, 0, 0, 1)"
-                                        style={{ width: "300px", height: "300px" }}
+                                        style={{ maxwidth: "300px", height: "auto" }}
                                     />
                                 )}
                             </div>
                         </div>
                     </div>
-                    <div className="col-4">
+                    <div className="col-12 col-md-4">
                         <p className="breadcrumb text-capitalize">
                             {breadcrumb.map((item, index) => (
                                 <span key={index}>
@@ -223,38 +223,27 @@ function SingleProduct() {
                             <div className="card border-0">
                                 <div className="card-body text-center">
                                     <div className="row">
-                                        <div className="col-3 product-card">
-                                            <img src={freeDelivery} alt="return-image" style={{ height: '50px', width: '50px' }} />
-                                            <p className="mt-2 mb-0 small fw-medium">Free Delivery</p>
+                                    {[{img: freeDelivery, text: "Free Delivery"},
+                                      {img: secure, text: "Secure Payments"},
+                                      {img: productReturn, text: "Easy Returns"},
+                                      {img: emi, text: "EMI Options"}].map((feature, idx) => (
+                                        <div key={idx} className="col-3 product-card">
+                                            <img src={feature.img} alt={feature.text} className="img-fluid" style={{ maxHeight: '50px', maxWidth: '50px' }} />
+                                            <p className="mt-2 mb-0 small fw-medium">{feature.text}</p>
                                         </div>
-                                        <div className="col-3 product-card">
-                                            <img src={secure} alt="return-image" style={{ height: '50px', width: '50px' }} />
-                                            <p className="mt-2 mb-0 small fw-medium">Secure Payments</p>
-                                        </div>
-                                        <div className="col-3 product-card">
-                                            <img src={productReturn} alt="return-image" style={{ height: '50px', width: '50px' }} />
-                                            <p className="mt-2 mb-0 small fw-medium">Easy Returns</p>
-                                        </div>
-                                        <div className="col-3 product-card">
-                                            <img src={emi} alt="return-image" style={{ height: '50px', width: '50px' }} />
-                                            <p className="mt-2 mb-0 small fw-medium">EMI Options</p>
-                                        </div>
-                                    </div>
+                                    ))}
+                                </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className="col-3">
+                    <div className="col-12 col-md-3 mt-4 mt-md-0">
                         <div className="card">
                             <div className="card-body">
                                 <h5 className="card-title">Add to Cart</h5>
-                                <select className="form-control mt-3" onChange={e => setQty(e.target.value)}>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                </select>
+                                <select className='form-control mt-3' onChange={e => setQty(e.target.value)}>
+                                {[1,2,3,4,5].map(n => <option key={n} value={n}>{n}</option>)}
+                            </select>
                                 <div className="d-grid gap-2 mt-3">
                                     <button className="btn btn-warning" onClick={e => Addtocart()}>Add to cart</button>
                                 </div>
@@ -262,8 +251,8 @@ function SingleProduct() {
                         </div>
                     </div>
                 </div>
-                <div className="container mt-5">
-                    <div className="row">
+                {/* <div className="container mt-5"> */}
+                    <div className="row mt-5">
                         <div className="col-12">
                             <div className="card p-3">
                                 <h4>Other Products</h4>
@@ -273,13 +262,13 @@ function SingleProduct() {
                                             if (!similarproductsLoop.thumbnail) return null;
 
                                             return (
-                                                <div key={similarproductsLoop.id} className="me-3 border rounded">
+                                                <div key={similarproductsLoop.id} className="m-2 border rounded col-6 col-sm-4 col-md-3 col-lg-2 text-center">
                                                     <img src={similarproductsLoop?.thumbnail}
                                                         alt={similarproductsLoop?.title}
-                                                        style={{ width: "150px", height: "150px", objectFit: "contain" }}
-                                                        className="product-card"
+                                                        style={{ maxheight: "150px", objectFit: "contain" }}
+                                                        className="img-fluid product-card"
                                                     />
-                                                    <h6 className="mt-3 text-center">{similarproductsLoop?.title}</h6>
+                                                    <h6 className="mt-2">{similarproductsLoop?.title}</h6>
                                                     {/* <h6 className="mt-3 badge text-bg-success"><i className="i bi-star-fill text-sm"></i> {similarproductsLoop?.rating}</h6> */}
                                                     <h6 className="text-center"><i className="i bi-currency-rupee fs-6"></i>{similarproductsLoop?.price}</h6>
                                                 </div>
@@ -290,17 +279,17 @@ function SingleProduct() {
                             </div>
                         </div>
                     </div>
-                </div>
-                <div className="container mt-3">
-                    <div className="row">
+                {/* </div> */}
+                {/* <div className="container mt-3"> */}
+                    <div className="row mt-3">
                         <div className="col-12">
                             <div className="card">
                                 <h4 className="ms-3 mt-3">Customers say</h4>
                                 <div className="card-body d-grid">
                                     {
                                         productData?.reviews?.map((productReviews, i) => (
-                                            <div key={i} className="me-3">
-                                                <div className="card card-body mt-2 product-card">
+                                            <div key={i} className="me-3 mb-3">
+                                                <div className="card card-body product-card">
                                                     <h6><img src={unknownUser} className="rounded-circle me-2" alt="unknown user" style={{ height: '30px', width: '30px' }} />{productReviews.reviewerName}</h6>
                                                     <h6>Rating: {"⭐".repeat(productReviews.rating)}</h6>
                                                     <h6>Reviewed in India on {new Date(productReviews.date).toLocaleDateString("en-GB", {
@@ -317,7 +306,7 @@ function SingleProduct() {
                             </div>
                         </div>
                     </div>
-                </div>
+                {/* </div> */}
             </div>
             <ToastContainer />
             <Footer />

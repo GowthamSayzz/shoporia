@@ -169,7 +169,7 @@ function Cart() {
                 {
                     (cartData === null || cartData.length === 0) && (
                         <div className="text-center">
-                            <img src={emptyCart} alt="empty-cart" className="mt-5 mb-3" style={{ height: '300px', width: '300px' }} />
+                            <img src={emptyCart} alt="empty-cart" className="mt-5 mb-3 img-fluid" style={{ maxheight: '300px', maxwidth: '300px' }} />
                             <p>Your cart is empty!!</p>
                             <p>Explore our wide selection and find something you like</p>
                         </div>
@@ -177,7 +177,7 @@ function Cart() {
                 }
                 {
                     <div className="row">
-                        <div className="col-8">
+                        <div className="col-12 col-lg-8">
                             {
                                 (cartData.length > 0) && (
                                     cartData.map((cart, i) => (
@@ -186,17 +186,17 @@ function Cart() {
                                                 {
                                                     cart.products.map((products, j) => (
                                                         <div className="card border-0 mb-3 border-bottom pb-3" key={j}>
-                                                            <div className="row">
-                                                                <div className="col-2">
+                                                            <div className="row align-items-center">
+                                                                <div className="col-4 col-sm-2 text-center">
                                                                     <img src={products.thumbnail} className="img-fluid" alt="product thumbnail" />
                                                                 </div>
-                                                                <div className="col-8">
-                                                                    <div className="card-body">
+                                                                <div className="col-8 col-sm-8">
+                                                                    <div className="card-body p-0">
                                                                         <h5>{products.title}</h5>
-                                                                        <div className="d-flex flex-row mt-3">
+                                                                        <div className="d-flex flex-wrap gap-2 mt-3 align-items-center">
                                                                             <div className="btn-group me-2 border border-dark">
                                                                                 <button className="btn btn-light" onClick={e => qtyDecrease(products, j, cart, i)}><strong> - </strong></button>
-                                                                                <span className="m-2">{products.quantity}</span>
+                                                                                <span className="px-2">{products.quantity}</span>
                                                                                 <button className="btn btn-light" onClick={e => qtyIncrease(products, j, cart, i)}><strong> + </strong></button>
                                                                             </div>
                                                                             <button className="btn btn-danger me-2" onClick={e => deleteProduct(products)}>Delete</button>
@@ -204,7 +204,7 @@ function Cart() {
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div className="col-2 text-end">
+                                                                <div className="col-12 col-sm-2 text-end mt-2 mt-sm-0">
                                                                     {/* <span class="badge rounded-pill text-bg-danger">Limited time deal</span> //badges for limited time deal */}
                                                                     <strong><i className="bi bi-currency-rupee fs-6"></i>{products.price}</strong>
                                                                 </div>
@@ -222,7 +222,7 @@ function Cart() {
                         </div>
                         {
                             (cartData.length > 0) && (
-                                <div className="col-4">
+                                <div className="col-12 col-lg-4 mt-3 mt-lg-0">
                                     <div className="shadow card">
                                         <div className="card-body">
                                             {
