@@ -12,7 +12,7 @@ export const API_END_POINTS = {
      */
 
     GET_ADDRESS_BY_USER: '/user',
-    ADDRESS_ADD: 'api/std/address/add',
+    ADDRESS_ADD: '/user/add',
     ADDRESS_VIEW: '/user',
     ADDRESS_DELETE: 'api/std/address/delete',
     SEARCH_SUGGESTIONS: '/products/search',
