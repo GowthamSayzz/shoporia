@@ -56,9 +56,9 @@ function Account() {
 
 
     return (
-        <div>
+        <div className='d-flex flex-column min-vh-100'>
             <NavBar />
-            <div className="container shoporia-mt">
+            <div className="container shoporia-mt flex-grow-1">
                 <div className="row">
                     <div className="col-md-3">
                         <div className="card shadow mb-3">
