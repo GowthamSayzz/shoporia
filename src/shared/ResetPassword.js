@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { ERROR_MESSAGES } from '../Constants/errors';
 import { resetpasswordAPI } from '../Services/authServices';
 import {Link} from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
 function ResetPassword(){
 
@@ -40,6 +41,7 @@ function ResetPassword(){
             }catch(error){
                 setapiMsg("");
                 setfpErrors({...fpErrors, apiError: true});
+                toast.error(error.response?.data?.message || error.message)
             }
         }
     }
@@ -92,6 +94,7 @@ function ResetPassword(){
                     &copy; 2025, Shoporia.in, Inc. or its affiliates
                 </div>
             </div>
+            <ToastContainer />
         </div>
     )
 }

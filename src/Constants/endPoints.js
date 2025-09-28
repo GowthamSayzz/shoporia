@@ -35,6 +35,13 @@ export const API_END_POINTS = {
     GET_SINGLE_CART: '/carts/user',
     ADD_TO_CART: '/carts/add',
     UPDATE_CART: '/carts',
-    DELETE_CART: '/carts'
+    DELETE_CART: '/carts',
+
+    /**
+     * USER & ADMIN END POINTS
+     */
+
+    GET_ALL_USERS:'/users?limit=20', // Due to API Limitations, Users are limitedly fetched
+    DELETE_USER: '/users/',
 
 }

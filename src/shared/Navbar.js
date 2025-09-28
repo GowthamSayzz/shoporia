@@ -35,7 +35,7 @@ function NavBar() {
                         setFetchCartItems(0);
                     }
                 } catch (error) {
-                    console.error('Error fetching cart:', error);
+                    toast.error(error.response?.data?.message || error.message);
                 }
             } else {
                 setFetchCartItems(0);
@@ -61,7 +61,7 @@ function NavBar() {
                 setsearchSuggestionList(suggestionValues);
                 setSearchDropdown(true);
             } catch (error) {
-                toast.error('Unable to process your request', error.message);
+                toast.error(error.response?.data?.message || error.message);
             }
         }
     }

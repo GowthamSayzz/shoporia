@@ -21,6 +21,7 @@ import banner22 from './Banners/banner43.png';
 
 import { useEffect, useState } from 'react';
 import { getAllProductsByCategoryAPI } from '../Services/productsService';
+import { ToastContainer, toast } from 'react-toastify';
 
 function HomeSection() {
 
@@ -31,8 +32,12 @@ function HomeSection() {
     }, [])
 
     const getPhoneProducts = async () => {
-        let apiResponse = await getAllProductsByCategoryAPI('smartphones');
-        setGetPhones(apiResponse.data.products);
+        try {
+            let apiResponse = await getAllProductsByCategoryAPI('smartphones');
+            setGetPhones(apiResponse.data.products);
+        } catch (error) {
+            toast.error(error.response?.data?.message || error.message)
+        }
     }
 
     return (
@@ -162,6 +167,7 @@ function HomeSection() {
                     </div>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     )
 

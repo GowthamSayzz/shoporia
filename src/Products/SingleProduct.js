@@ -49,7 +49,7 @@ function SingleProduct() {
                 setProductData({ ...apiResponse.data });
                 setMainImage(apiResponse.data.images[0]);
             } catch (error) {
-                toast.error(error.message);
+                toast.error(error.response?.data?.message || error.message);
             }
         }
 
@@ -70,7 +70,7 @@ function SingleProduct() {
 
                 setBreadcrumb(breadCrumbData);
             } catch (error) {
-                console.error(error);
+                toast.error(error.response?.data?.message || error.message);
             }
         }
 
@@ -90,7 +90,7 @@ function SingleProduct() {
             setGetcart(cart);
             return cart;
         } catch (error) {
-            toast.error(error.message);
+            toast.error(error.response?.data?.message || error.message);
         }
     }
 
@@ -101,7 +101,7 @@ function SingleProduct() {
             const shuffleProducts = apiResponse.data.products.sort(() => 0.5 - Math.random());
             setSimilarProducts(shuffleProducts);
         } catch (error) {
-            toast.error(error.message);
+            toast.error(error.response?.data?.message || error.message);
         }
     }
 

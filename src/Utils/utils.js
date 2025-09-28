@@ -35,11 +35,11 @@ export const invalidSession = () => {
     return setTimeout(() => {
         localStorage.clear();
         window.location.href = '/signin';
-    }, 5000);
+    }, 3000);
 }
 
-export const timeoutSession = () => {
+export const orderSuccessSession = () => {
     return setTimeout(() => {
-        window.location.href = '/';
-    }, 4000);
+        window.location.href = '/product-search';
+    }, 3000);
 }

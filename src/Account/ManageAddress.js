@@ -1,15 +1,19 @@
 import { useState } from 'react';
 import { addressaddAPI } from '../Services/addressService';
 import banner from './Images/PersonalInfoBanner.png';
+import { ToastContainer, toast } from 'react-toastify';
 
 function ManageAddress({ manageaddressdata, profiledata }) {
 
     const [addressData, setAddressData] = useState({ name: '', mobile: '', email: '', address: '', city: '', state: '', country: '', pincode: '' });
-    
+
     const addressHandler = async () => {
-        let apiResponse = await addressaddAPI(addressData);
-        console.log(apiResponse.data);
-        setAddressData(apiResponse.data);
+        try {
+            let apiResponse = await addressaddAPI(addressData);
+            setAddressData(apiResponse.data);
+        }catch(error){
+            toast.error(error.response?.data?.message || error.message);
+        }
     }
 
     return (
@@ -75,6 +79,7 @@ function ManageAddress({ manageaddressdata, profiledata }) {
             <div className='mt-4'>
                 <img src={banner} alt="footer-banner" className='img-fluid' style={{ width: '100%', height: '100%' }} />
             </div>
+            <ToastContainer />
         </div>
     )
 }

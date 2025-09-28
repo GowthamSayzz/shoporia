@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { ERROR_MESSAGES } from '../Constants/errors';
 import { signupAPI } from '../Services/authServices';
 import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
 
 function Signup() {
@@ -53,17 +54,16 @@ function Signup() {
         if (noofErrors === false) {
             try {
                 let apiResponse = await signupAPI({ ...signupData });
-                console.log(apiResponse.data);
                 if (apiResponse.data.result === "success") {
                     localStorage.setItem("userData", JSON.stringify(apiResponse.data.data));
                     localStorage.setItem("tracking_Id", 1)
                     window.location = "/";
                 }
             }catch(error){
-                
+                toast.error(error.response?.data?.message || error.message);
             }
         } else {
-            alert("Details are incorrect");
+            toast.error("Details are incorrect");
         }
     }
 
@@ -128,6 +128,7 @@ function Signup() {
                     &copy; 2025, Shoporia.in, Inc. or its affiliates
                 </div>
             </div>
+            <ToastContainer />
         </div>
     )
 }

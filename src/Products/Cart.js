@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Footer from "../shared/Footer";
 import NavBar from "../shared/Navbar";
 import { toast, ToastContainer } from "react-toastify";
-import { getLoggedInUserId, timeoutSession } from "../Utils/utils";
+import { getLoggedInUserId, orderSuccessSession } from "../Utils/utils";
 import emptyCart from './Images/emptyCart1.png';
 import { deleteProductInCart, getCartByUserId } from "../Services/cartServices";
 import { updateProductsQtyAPI } from "../Services/productsService";
@@ -88,9 +88,7 @@ function Cart() {
         }
         try {
             let userId = getLoggedInUserId();
-            //let apiResponse = await axios.put('https://dummyjson.com/carts/6', apiData);
             let apiResponse = await updateProductsQtyAPI(userId, apiData);
-            console.log(apiResponse.data);
             if (apiResponse.status === 200) {
                 setCartData(prev =>
                     prev.map(p => (p.id === product.id ? { ...p, quantity: product.quantity } : p))
@@ -126,7 +124,6 @@ function Cart() {
 
     const deleteProduct = async (product) => {
         try {
-            console.log(product, 'from delete api');
             let apiResponse = await deleteProductInCart(product.id);
             if (apiResponse.status === 200) {
                 setCartData(prev => prev.filter(p => p.id !== product.id));
@@ -146,7 +143,8 @@ function Cart() {
     const handlePayments = async () => {
         if (cartData[0].totalProducts > 0) {
             toast.success('Order Success');
-            timeoutSession();
+            cartData.pop();
+            orderSuccessSession();
         } else if (cartData[0].totalProducts === 0) {
             toast.warning('No Products Found');
         } else {
@@ -165,7 +163,7 @@ function Cart() {
                 let apiResponse = await getCartByUserId(userId);
                 setCartData([...apiResponse.data.carts]);
             } catch (error) {
-                toast.error(error.message);
+                toast.error(error.response?.data?.message || error.message);
             }
         }
 

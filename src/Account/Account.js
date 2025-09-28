@@ -8,12 +8,15 @@ import { getLoggedInUserId } from "../Utils/utils";
 import SavedCards from "./SavedCards";
 import { Link } from "react-router-dom";
 import ManageAddress from "./ManageAddress";
+import AllUsers from "./AllUsers";
+import DeleteUser from "./DeleteUser";
 
 function Account() {
     const [userName, setUserName] = useState({});
     const [savedCards, setSavedCards] = useState({});
     const [activeTabs, setActiveTabs] = useState('profile');
     const [manageaddress, setManageAddress] = useState({});
+    const [isAdmin, setIsAdmin] = useState('');
 
     const logoutUser = () => {
         localStorage.clear();
@@ -44,6 +47,7 @@ function Account() {
                     }
                 );
                 setUserName(apiResponse.data);
+                setIsAdmin(apiResponse.data.role);
                 setSavedCards(apiResponse.data.bank);
                 setManageAddress(apiResponse.data.address);
 
@@ -97,6 +101,20 @@ function Account() {
                                     </div>
                                 </div>
 
+                                {
+                                    isAdmin === 'admin' &&
+                                    <div>
+                                        <hr/>
+                                        <h6 className="text-uppercase fs-5"><i className="bi bi-person-check me-1"></i> Admin Console</h6>
+                                        <div className="account text-center py-2" onClick={() =>setActiveTabs('adminrole')}>
+                                            <Link className="d-inline-flex pt-1 link-underline link-underline-opacity-0">All Customers</Link>
+                                        </div>
+                                        <div className="account text-center py-2" onClick={() =>setActiveTabs('userdelete')}>
+                                            <Link className="d-inline-flex pt-1 link-underline link-underline-opacity-0">Delete User</Link>
+                                        </div>
+                                    </div>
+                                }
+
                                 {/* <hr /> For Site Development Code Commented
 
                                 <div className="mt-4">
@@ -119,7 +137,7 @@ function Account() {
 
                                 <hr />
                                 <div className="mt-4 text-center text-md-start">
-                                    <h6 className="text-uppercase fs-5" onClick={() => logoutUser()}>
+                                    <h6 className="text-uppercase fs-5 shoporia-pointer" onClick={() => logoutUser()}>
                                         <i className="bi bi-power me-1"></i> Logout
                                     </h6>
                                 </div>
@@ -133,6 +151,8 @@ function Account() {
                                 {activeTabs === 'profile' && <PersonalInformation profiledata={userName} />}
                                 {activeTabs === 'savedcards' && <SavedCards savedcardsdata={savedCards} />}
                                 {activeTabs === 'manageaddress' && <ManageAddress manageaddressdata={manageaddress} profiledata={userName} />}
+                                {activeTabs === 'adminrole' && <AllUsers isadmin={isAdmin} />}
+                                {activeTabs === 'userdelete' && <DeleteUser isadmin={isAdmin} />}
                             </div>
                         </div>
                     </div>

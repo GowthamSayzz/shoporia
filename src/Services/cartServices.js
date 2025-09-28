@@ -10,11 +10,9 @@ export const addtoCartByUserId = async (data) => {
 }
 
 export const updateCartByUserId = async (data) => {
-    console.log('update cart from service', data);
     return await axiosInstance.put(`${API_END_POINTS.UPDATE_CART}/${data}`);
 }
 
 export const deleteProductInCart = async (data) => {
-    console.log('delete cart from service', data);
     return await axiosInstance.delete(`${API_END_POINTS.DELETE_CART}/${data}`);
 }

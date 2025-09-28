@@ -38,7 +38,6 @@ function AddAddress({addnewAddress}){
     
     const addAddressHandler = async() => {
         let apiResponse = await addressaddAPI(addressData);
-        console.log(apiResponse.data.data);
         addnewAddress(apiResponse.data.data);
     }
     

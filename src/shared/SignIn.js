@@ -55,7 +55,7 @@ function SignIn() {
                 }
             } catch (error) {
                 setSigninErrors({ ...signinData, apiError: true });
-                toast.error(error.message);
+                toast.error(error.response?.data?.message || error.message);
             }
         }
     }

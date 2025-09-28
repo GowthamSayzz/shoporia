@@ -5,6 +5,7 @@ import AddAddress from "./AddAddress";
 import { addressaddAPI, addressdeleteAPI, addressviewAPI } from '../Services/addressService';
 import { getLoggedInUserId } from "../Utils/utils";
 import SingleAddress from "./SingleAddress";
+import { ToastContainer, toast } from "react-toastify";
 
 function Address() {
 
@@ -17,7 +18,7 @@ function Address() {
                 let apiResponse = await addressviewAPI({ userId: getLoggedInUserId() });
                 setAddressData([...apiResponse.data.data]);
             } catch (error) {
-                console.log(error.message);
+                toast.error(error.response?.data?.message || error.message);
             }
         }
 
@@ -84,6 +85,7 @@ function Address() {
                     </div>
                 </div>
             </div>
+            <ToastContainer />
             <Footer />
         </div>
     )
