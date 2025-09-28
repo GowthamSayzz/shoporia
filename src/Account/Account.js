@@ -46,7 +46,7 @@ function Account() {
                 setUserName(apiResponse.data);
                 setSavedCards(apiResponse.data.bank);
                 setManageAddress(apiResponse.data.address);
-                
+
             } catch (error) {
                 toast.error("Unauthorised Login");
             }
@@ -60,16 +60,16 @@ function Account() {
             <NavBar />
             <div className="container shoporia-mt flex-grow-1">
                 <div className="row">
-                    <div className="col-md-3">
+                    <div className="col-12 col-md-3 mb-3 mb-md-0">
                         <div className="card shadow mb-3">
-                            <div className="card-body d-flex">
+                            <div className="card-body d-flex flex-column flex-md-row align-items-center">
                                 <img
                                     src={userName.image}
                                     alt="userAvatar"
-                                    className="rounded-circle"
-                                    style={{ width: "100px", height: "100px" }}
+                                    className="rounded-circle img-fluid"
+                                    style={{ maxwidth: "100px", height: "auto" }}
                                 />
-                                <div className="ms-3 mt-2">
+                                <div className="mt-2 mt-md-0 ms-md-3 text-center text-md-start">
                                     <h6 className="text-capitalize">Hello {userName.role}</h6>
                                     <strong className="text-capitalize">{userName?.username}</strong>
                                 </div>
@@ -78,25 +78,21 @@ function Account() {
 
                         <div className="card shadow mb-3">
                             <div className="card-body">
-                                <div className="mt-1">
-                                    <div className="text-uppercase">
-                                        <h6 className="text-start fs-5"><i className="bi bi-person fs-4 me-1"></i> Account Settings</h6>
-                                    </div>
-                                    <div className="text-center account account-div-height" onClick={() => setActiveTabs('profile')}>
+                                <div className="mb-4">
+                                    <h6 className="text-uppercase fs-5"><i className="bi bi-person fs-4 me-1"></i> Account Settings</h6>
+                                    <div className="account text-center py-2" onClick={() => setActiveTabs('profile')}>
                                         <Link className="d-inline-flex pt-1 link-underline link-underline-opacity-0">Profile</Link>
                                     </div>
-                                    <div className="account text-center account-div-height" onClick={() => setActiveTabs('manageaddress')}>
+                                    <div className="account text-center py-2" onClick={() => setActiveTabs('manageaddress')}>
                                         <Link className="d-inline-flex pt-1 link-underline link-underline-opacity-0">Manage Addresses</Link>
                                     </div>
                                 </div>
 
                                 <hr />
 
-                                <div className="mt-4">
-                                    <div className="text-uppercase">
-                                        <h6 className="text-start fs-5"><i className="bi bi-wallet2 me-1"></i> Payments</h6>
-                                    </div>
-                                    <div className="account text-center account-div-height" onClick={() => setActiveTabs('savedcards')}>
+                                <div className="mb-4">
+                                    <h6 className="text-uppercase fs-5"><i className="bi bi-wallet2 me-1"></i> Payments</h6>
+                                    <div className="account text-center py-2" onClick={() => setActiveTabs('savedcards')}>
                                         <Link className="d-inline-flex pt-1 link-underline link-underline-opacity-0">Saved Cards</Link>
                                     </div>
                                 </div>
@@ -122,19 +118,21 @@ function Account() {
                                 </div> */}
 
                                 <hr />
-                                <div className="mt-4">
-                                    <h6 className="text-uppercase fs-5" onClick={e => logoutUser()}><i className="bi bi-power me-1"></i> Logout</h6>
+                                <div className="mt-4 text-center text-md-start">
+                                    <h6 className="text-uppercase fs-5" onClick={() => logoutUser()}>
+                                        <i className="bi bi-power me-1"></i> Logout
+                                    </h6>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div className="col-md-9">
-                        <div className="card shadow">
-                            <div className="card-body">
+                    <div className="col-12 col-md-9">
+                        <div className="card">
+                            <div className="card-body shadow-sm">
                                 {activeTabs === 'profile' && <PersonalInformation profiledata={userName} />}
                                 {activeTabs === 'savedcards' && <SavedCards savedcardsdata={savedCards} />}
-                                {activeTabs === 'manageaddress' && <ManageAddress manageaddressdata={manageaddress} profiledata={userName}/>}
+                                {activeTabs === 'manageaddress' && <ManageAddress manageaddressdata={manageaddress} profiledata={userName} />}
                             </div>
                         </div>
                     </div>

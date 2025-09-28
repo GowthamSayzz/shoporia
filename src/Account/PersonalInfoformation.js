@@ -2,7 +2,7 @@ import banner from './Images/PersonalInfoBanner.png';
 function PersonalInformation({ profiledata }) {
     return (
         <div className='p-2'>
-            <h5 className="mb-3"> Personal Information</h5>
+            <h5 className="mb-3">Personal Information</h5>
             {
                 <div>
                     <div className='mb-3'>
@@ -35,7 +35,7 @@ function PersonalInformation({ profiledata }) {
                 </div>
             }
             <div className='mt-4'>
-                <img src={banner} alt="footer-banner" style={{ width: '100%', height: '100%' }} />
+                <img src={banner} alt="footer-banner" className='img-fluid' style={{ width: '100%', height: '100%' }} />
             </div>
         </div>
     )

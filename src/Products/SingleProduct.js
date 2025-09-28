@@ -154,9 +154,9 @@ function SingleProduct() {
     }
 
     return (
-        <div>
+        <div className='d-flex flex-column min-vh-100'>
             <Navbar />
-            <div className='container shoporia-mt'>
+            <div className='container shoporia-mt flex-grow-1'>
                 <div className='row mt-4'>
                     <div className="col-12 col-md-5 mb-4 mb-md-0">
                         <div className="row">

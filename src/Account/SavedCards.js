@@ -21,7 +21,7 @@ function SavedCards({ savedcardsdata }) {
                 </div>
             }
             <div className='mt-4'>
-                <img src={banner} alt="footer-banner" style={{ width: '100%', height: '100%' }} />
+                <img src={banner} alt="footer-banner" className='img-fluid' style={{ width: '100%', height: '100%' }} />
             </div>
         </div>
     )

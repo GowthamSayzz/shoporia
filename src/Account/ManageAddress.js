@@ -15,16 +15,16 @@ function ManageAddress({ manageaddressdata, profiledata }) {
     return (
         <div className='p-2'>
             <h5 className="mb-3">Manage Address</h5>
-            <button className='border border-1 btn btn-primary fw-bold' data-bs-toggle="collapse" data-bs-target="#myFormCollapse">
+            <button className='btn btn-primary fw-bold border border-1' data-bs-toggle="collapse" data-bs-target="#myFormCollapse">
                 <i className='bi bi-plus me-2'></i>ADD A NEW ADDRESS
             </button>
-            <div className='card card-body mt-3 rounded-0'>
+            <div className='card card-body mt-3 rounded-0 shadow-sm'>
                 {
                     <div>
                         <div className="mb-3">
                             <span className="badge bg-warning text-dark mb-2">HOME</span>
                             <div className="fw-bold">
-                                {profiledata?.firstName} {<i className="bi bi-dot"></i>} {profiledata?.phone}
+                                {profiledata?.firstName} {<i className="bi bi-dot mx-1"></i>} {profiledata?.phone}
                             </div>
                             <div className="text-regular mt-1">
                                 {manageaddressdata?.address}, {manageaddressdata?.city}, {manageaddressdata?.state}, {manageaddressdata?.country} -{" "}
@@ -34,9 +34,9 @@ function ManageAddress({ manageaddressdata, profiledata }) {
                     </div>
                 }
             </div>
-            <div className='card card-body mt-3 collapse' id='myFormCollapse'>
+            <div className='card card-body mt-3 collapse shadow-sm' id='myFormCollapse'>
                 <h6 className='fw-bold'>Add Address</h6>
-                <div className="mt-1">
+                <div className="mt-2">
                     <label className="small">Name</label>
                     <input type="text" className="form-control" placeholder="Your Name" value={addressData.name} onChange={e => setAddressData({ ...addressData, name: e.target.value })} />
                 </div>
@@ -73,7 +73,7 @@ function ManageAddress({ manageaddressdata, profiledata }) {
                 </div>
             </div>
             <div className='mt-4'>
-                <img src={banner} alt="footer-banner" style={{ width: '100%', height: '100%' }} />
+                <img src={banner} alt="footer-banner" className='img-fluid' style={{ width: '100%', height: '100%' }} />
             </div>
         </div>
     )

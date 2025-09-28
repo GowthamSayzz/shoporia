@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import Footer from "../shared/Footer";
 import NavBar from "../shared/Navbar";
-import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import { getLoggedInUserId, timeoutSession } from "../Utils/utils";
 import emptyCart from './Images/emptyCart1.png';
 import { deleteProductInCart, getCartByUserId } from "../Services/cartServices";
+import { updateProductsQtyAPI } from "../Services/productsService";
 
 function Cart() {
 
@@ -87,10 +87,20 @@ function Cart() {
             ]
         }
         try {
-            let apiResponse = await axios.put('https://dummyjson.com/carts/6', apiData);
+            let userId = getLoggedInUserId();
+            //let apiResponse = await axios.put('https://dummyjson.com/carts/6', apiData);
+            let apiResponse = await updateProductsQtyAPI(userId, apiData);
             console.log(apiResponse.data);
+            if (apiResponse.status === 200) {
+                setCartData(prev =>
+                    prev.map(p => (p.id === product.id ? { ...p, quantity: product.quantity } : p))
+                );
+                toast.success("Quantity updated successfully!");
+            } else {
+                toast.error("Failed to update quantity");
+            }
         } catch (error) {
-            toast.error(error.message);
+            toast.error(error.response?.data?.message || error.message);
         }
     }
 
@@ -163,9 +173,9 @@ function Cart() {
 
     }, [])
     return (
-        <div>
+        <div className='d-flex flex-column min-vh-100'>
             <NavBar />
-            <div className="container shoporia-mt">
+            <div className="container shoporia-mt flex-grow-1">
                 {
                     (cartData === null || cartData.length === 0) && (
                         <div className="text-center">
@@ -196,7 +206,7 @@ function Cart() {
                                                                         <div className="d-flex flex-wrap gap-2 mt-3 align-items-center">
                                                                             <div className="btn-group me-2 border border-dark">
                                                                                 <button className="btn btn-light" onClick={e => qtyDecrease(products, j, cart, i)}><strong> - </strong></button>
-                                                                                <span className="px-2">{products.quantity}</span>
+                                                                                <span className="p-2">{products.quantity}</span>
                                                                                 <button className="btn btn-light" onClick={e => qtyIncrease(products, j, cart, i)}><strong> + </strong></button>
                                                                             </div>
                                                                             <button className="btn btn-danger me-2" onClick={e => deleteProduct(products)}>Delete</button>
@@ -244,7 +254,7 @@ function Cart() {
                     </div>
                 }
             </div>
-            <ToastContainer autoClose={3000}/>
+            <ToastContainer autoClose={3000} />
             <Footer />
         </div>
     )

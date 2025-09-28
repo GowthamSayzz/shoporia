@@ -1,11 +1,9 @@
-import axios from 'axios';
 import banner1 from './Banners/banner25.png';
 import banner2 from './Banners/banner26.jpg';
 import banner3 from './Banners/banner36.png';
 import banner4 from './Banners/banner28.jpg';
 import banner5 from './Banners/banner29.jpg';
 import banner6 from './Banners/banner30.jpg';
-import banner8 from './Banners/banner8.png';
 import banner9 from './Banners/banner15.png';
 import banner10 from './Banners/banner16.png';
 import banner11 from './Banners/banner17.png';
@@ -22,6 +20,7 @@ import banner21 from './Banners/banner42.png';
 import banner22 from './Banners/banner43.png';
 
 import { useEffect, useState } from 'react';
+import { getAllProductsByCategoryAPI } from '../Services/productsService';
 
 function HomeSection() {
 
@@ -32,7 +31,7 @@ function HomeSection() {
     }, [])
 
     const getPhoneProducts = async () => {
-        let apiResponse = await axios.get('https://dummyjson.com/products/category/smartphones');
+        let apiResponse = await getAllProductsByCategoryAPI('smartphones');
         setGetPhones(apiResponse.data.products);
     }
 
@@ -111,11 +110,6 @@ function HomeSection() {
                             </button>
                         </div>
                     </div>
-                    {/* <div className='col-12 col-lg-2'>
-                        <div className='card-body shadow h-100 d-flex justify-content-center align-items-center'>
-                            <img src={banner8} alt='image-poster' className='img-fluid' style={{ maxheight: '335px', objectFit:'cover' }} />
-                        </div>
-                    </div> */}
                 </div>
             </div>
 

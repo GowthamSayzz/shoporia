@@ -20,3 +20,7 @@ export const getProductByIdAPI = async (data) => {
 export const getOtherProductsAPI = async (data) => {
     return await axiosInstance.get(API_END_POINTS.OTHER_PRODUCTS, data);
 }
+
+export const updateProductsQtyAPI = async (cartId, data) => {
+    return await axiosInstance.put(`${API_END_POINTS.UPDATE_CART}/${cartId}`, data);
+}

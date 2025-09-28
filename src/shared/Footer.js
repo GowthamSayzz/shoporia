@@ -60,16 +60,16 @@ function Footer() {
             <hr />
             <div className='container'>
                 <div className='row justify-content-center align-items-center text-center'>
-                    <div className='col-12 col-sm-6 col-md-4 col-lg-2 mt-5 text-light'>
+                    <div className='col-12 col-sm-6 col-md-4 col-lg-2 mt-3 mb-5 text-light'>
                         <i className="bi bi-cart-check-fill"></i> Become a Seller
                     </div>
-                    <div className='col-12 col-sm-6 col-md-4 col-lg-2 mt-5 text-light'>
+                    <div className='col-12 col-sm-6 col-md-4 col-lg-2 mt-3 mb-5 text-light'>
                         <i className="bi bi-question-circle"></i> Help center
                     </div>
-                    <div className='col-12 col-sm-6 col-md-4 col-lg-2 mt-5 text-light'>
+                    <div className='col-12 col-sm-6 col-md-4 col-lg-2 mt-3 mb-5 text-light'>
                         &copy; 2025 Shoporia Pvt Ltd
                     </div>
-                    <div className='col-12 col-sm-6 col-md-4 col-lg-2 mt-5 text-light'>
+                    <div className='col-12 col-sm-6 col-md-4 col-lg-2 mt-3 mb-5 text-light'>
                         <img src={cards} alt='credit-debit-cards' className='img-fluid' />
                     </div>
                 </div>

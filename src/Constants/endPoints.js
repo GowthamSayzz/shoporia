@@ -26,6 +26,7 @@ export const API_END_POINTS = {
     ALL_PRODUCTS_BY_CATEGORY: '/products/category',
     PRODUCTS_BY_ID: '/products',
     OTHER_PRODUCTS: '/products?limit=60&skip=30',
+    UPDATE_QTY: '/carts',
 
     /**
      * CART API END POINTS
