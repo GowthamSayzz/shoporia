@@ -25,7 +25,7 @@ function DeleteUser({ isadmin }) {
             {
                 isadmin === 'admin' &&
                 <div>
-                    <h6>Delete User</h6>
+                    <h5 className='mb-3'>Delete User</h5>
                     <div className='mb-3 mt-3 justify-content-center align-items-center'>
                         <label className='form-label text-center text-capitalize fw-bold'>Enter User Id</label>
                         <input type='text' className='form-control w-50' placeholder='User Id' value={userId} onChange={(e) => setUserId(e.target.value)} />

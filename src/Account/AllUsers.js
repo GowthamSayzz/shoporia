@@ -20,10 +20,10 @@ function AllUsers({ isadmin }) {
     }, []);
     return (
         <div className='p-2'>
-            <h6 className='mb-3'>Users Data</h6>
             {
                 isadmin === 'admin' &&
                 <div>
+                    <h5 className='mb-3'>Users Data</h5>
                     <table className='table table-hover table-striped table-bordered shadow border rounded-1'>
                         <thead>
                             <tr className='text-center'>
