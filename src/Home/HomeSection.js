@@ -131,7 +131,7 @@ function HomeSection() {
                                 <div key={i} className={`carousel-item ${i === 0 ? 'active' : ''}`}>
                                     <div className="row g-1">
                                         {group.map((img, j) => (
-                                            <div key={j} className="col-6 col-md-3">
+                                            <div key={j} className="col-12 col-md-3">
                                                 <img
                                                     src={img}
                                                     className="img-fluid w-100 d-block"

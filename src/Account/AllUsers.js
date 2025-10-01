@@ -24,42 +24,44 @@ function AllUsers({ isadmin }) {
                 isadmin === 'admin' &&
                 <div>
                     <h5 className='mb-3'>Users Data</h5>
-                    <table className='table table-hover table-striped table-bordered shadow border rounded-1'>
-                        <thead>
-                            <tr className='text-center'>
-                                <th scope='col'>User Id</th>
-                                <th scope='col'>User Name</th>
-                                <th scope='col'>First Name</th>
-                                <th scope='col'>Last Name</th>
-                                <th scope='col'>Birth Date</th>
-                                <th scope='col'>Gender</th>
-                                <th scope='col'>Age</th>
-                                <th scope='col'>Role</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                allUsers.length > 0 ? (
-                                    allUsers?.map((customersData, i) => (
-                                        <tr key={customersData.id || i} className='text-center text-capitalize'>
-                                            <th scope='row' className='text-center'>{customersData.id}</th>
-                                            <td>{customersData.username}</td>
-                                            <td>{customersData.firstName}</td>
-                                            <td>{customersData.lastName}</td>
-                                            <td>{new Date(customersData.birthDate).toLocaleDateString("en-GB")}</td>
-                                            <td>{customersData.gender}</td>
-                                            <td>{customersData.age}</td>
-                                            <td>{customersData.role}</td>
+                    <div className='table-responsive shadow border rounded-1'>
+                        <table className='table table-hover table-striped table-bordered mb-0'>
+                            <thead>
+                                <tr className='text-center'>
+                                    <th scope='col'>User Id</th>
+                                    <th scope='col'>User Name</th>
+                                    <th scope='col'>First Name</th>
+                                    <th scope='col'>Last Name</th>
+                                    <th scope='col'>Birth Date</th>
+                                    <th scope='col'>Gender</th>
+                                    <th scope='col'>Age</th>
+                                    <th scope='col'>Role</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    allUsers.length > 0 ? (
+                                        allUsers?.map((customersData, i) => (
+                                            <tr key={customersData.id || i} className='text-center text-capitalize'>
+                                                <th scope='row' className='text-center'>{customersData.id}</th>
+                                                <td>{customersData.username}</td>
+                                                <td>{customersData.firstName}</td>
+                                                <td>{customersData.lastName}</td>
+                                                <td>{new Date(customersData.birthDate).toLocaleDateString("en-GB")}</td>
+                                                <td>{customersData.gender}</td>
+                                                <td>{customersData.age}</td>
+                                                <td>{customersData.role}</td>
+                                            </tr>
+                                        ))
+                                    ) : (
+                                        <tr>
+                                            <td colSpan='8' className='text-center'>No Users Found</td>
                                         </tr>
-                                    ))
-                                ) : (
-                                    <tr>
-                                        <td colSpan='8' className='text-center'>No Users Found</td>
-                                    </tr>
-                                )
-                            }
-                        </tbody>
-                    </table>
+                                    )
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             }
             <div className='mt-4'>
