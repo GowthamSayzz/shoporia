@@ -6,7 +6,9 @@ import { ToastContainer, toast } from 'react-toastify';
 function DeleteUser({ isadmin }) {
 
     const [userId, setUserId] = useState('');
-
+    /**
+    * !!! RETRIEVES ALL REQUIRED ADMIN LEVEL INFORMATION FROM THE BACKEND WHEN THE TAB IS OPENED TO DELETE USER
+    */
     const deleteUser = async (id) => {
         try {
             let apiResponse = await deleteUsersAPI(id);
@@ -22,6 +24,9 @@ function DeleteUser({ isadmin }) {
 
     return (
         <div className='p-2'>
+
+            {/* CHECKS THE USER ROLE AND ENABLES THE UI TAB FOR DELETING USERS AND PERFORMING OTHER OPERATIONS */}
+
             {
                 isadmin === 'admin' &&
                 <div>
@@ -33,6 +38,9 @@ function DeleteUser({ isadmin }) {
                     </div>
                 </div>
             }
+            
+            {/* A FOOTER BANNER TO PROVIDE A CLEAN AND ENHANCED UI EXPERIENCE */}
+
             <div className='mt-4'>
                 <img src={banner} alt="footer-banner" className='img-fluid' style={{ width: '100%', height: '100%' }} />
             </div>

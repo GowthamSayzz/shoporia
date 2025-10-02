@@ -7,6 +7,10 @@ function AllUsers({ isadmin }) {
 
     const [allUsers, setAllusers] = useState([{}]);
 
+    /**
+     * !!! RETRIEVES ALL REQUIRED USER INFORMATION FROM THE BACKEND WHEN THE TAB IS OPENED
+     */
+
     useEffect(() => {
         const fetchAllCustomers = async () => {
             try {
@@ -18,8 +22,12 @@ function AllUsers({ isadmin }) {
         }
         fetchAllCustomers();
     }, []);
+
     return (
         <div className='p-2'>
+
+            {/* IT PERFORMS ADMIN-LEVEL CHECKS AND OPENS THE USER TABLE TO DISPLAY THE DETAILS OF ONLINE CUSTOMERS */}
+
             {
                 isadmin === 'admin' &&
                 <div>
@@ -39,6 +47,9 @@ function AllUsers({ isadmin }) {
                                 </tr>
                             </thead>
                             <tbody>
+
+                                {/* USING JAVASCRIPT MAP() TO TRANSFORM AND RENDER USER DATA INTO THE REQUIRED TABLE BODY FORMAT */}
+
                                 {
                                     allUsers.length > 0 ? (
                                         allUsers?.map((customersData, i) => (
@@ -64,6 +75,9 @@ function AllUsers({ isadmin }) {
                     </div>
                 </div>
             }
+
+            {/* A FOOTER BANNER TO PROVIDE A CLEAN AND ENHANCED UI EXPERIENCE */}
+            
             <div className='mt-4'>
                 <img src={banner} alt="footer-banner" className='img-fluid' style={{ width: '100%', height: '100%' }} />
             </div>

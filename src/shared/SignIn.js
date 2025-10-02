@@ -8,6 +8,10 @@ import { ToastContainer, toast } from 'react-toastify';
 
 function SignIn() {
 
+    /**
+     * !!! CHECKING USER LOGIN STATUS
+     */
+    
     let isUserLoggedIn = checkUserLoginStatus();
     if (isUserLoggedIn === true) {
         window.location = '/';
@@ -16,6 +20,10 @@ function SignIn() {
     const [signinData, setsigninData] = useState({ username: "", password: "" });
     const [signinErrors, setSigninErrors] = useState({ username: false, password: false, apiError: false });
 
+    /**
+     * !!! GET THE USER INPUT USERNAME & PASSWORD
+     */
+
     const updateUserName = (e) => {
         setsigninData({ ...signinData, username: e.target.value });
     }
@@ -23,6 +31,10 @@ function SignIn() {
     const updatePassword = (e) => {
         setsigninData({ ...signinData, password: e.target.value });
     }
+
+    /**
+     * !!! USERNAME & PASSWORD LOGIN VALIDATIONS TO GET THE SHOPORIA USER ACCESS
+     */
 
     const sendSignInData = async () => {
         let tempErrors = { signinErrors }

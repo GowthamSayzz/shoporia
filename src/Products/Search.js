@@ -13,6 +13,10 @@ function Search() {
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [filteredProducts, setFilteredProducts] = useState([]);
 
+    /**
+     * !!! RETRIEVES EVERY PRODUCT, CATEGORY AND FILTERS THE PRODUCTS BASED ON USER CATERGORY SELECTION
+     */
+
     useEffect(() => {
 
         const fetchData = async () => {
@@ -30,6 +34,10 @@ function Search() {
         };
         fetchData();
     }, []);
+
+    /**
+     * TODO: HANDLES THE CHECKBOX SELECTION CATEGROY AND DISPLAYS THE PRODUCTS DATA
+     */
 
     const handleCheckboxChange = async (categoryName) => {
         setSelectedCategories((prev) =>
@@ -67,6 +75,9 @@ function Search() {
             <div className='container-fluid shoporia-mt flex-grow-1'>
                 <div className='row mt-4'>
                     <div className='col-12 col-md-3 mb-4 mb-md-0'>
+
+                        {/* CATEGORY'S LAYOUT */}
+
                         <div className='card card-body'>
                             <div className='card-title'>
                                 <h5 className='fs-5'>Category</h5>
@@ -86,6 +97,9 @@ function Search() {
                                     </div>
                                 ))
                             }
+
+                            {/* DISPLAYS THE SELECTED CATEGORY'S INFORMATION */}
+
                             <div style={{ marginTop: "20px" }}>
                                 <h4>Selected Categories:</h4>
                                 {selectedCategories.length > 0
@@ -94,6 +108,9 @@ function Search() {
                             </div>
                         </div>
                     </div>
+
+                    {/* LOOPS EACH AND EVERY PRODUCT TO DISPLAY ON THE SCREEN */}
+
                     <div className='col-6'>
                         {filteredProducts.length > 0 ? (
                             filteredProducts.map((product, i) => (

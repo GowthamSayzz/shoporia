@@ -27,6 +27,10 @@ function HomeSection() {
 
     const [getPhones, setGetPhones] = useState([]);
 
+    /**
+     * !!! FETCHES SMARTPHONE DATA WHEN THE HOME PAGE LOADS
+     */
+
     useEffect(() => {
         getPhoneProducts();
     }, [])
@@ -42,6 +46,9 @@ function HomeSection() {
 
     return (
         <div className="container shoporia-mt">
+            
+            {/* CAROUSEL FOR HOME PAGE BANNERS & A SLIDER FOR QUICK SALE UPDATES */}
+
             <div id="autoCarousel" className="carousel slide" data-bs-ride="carousel" data-bs-interval="3000" data-bs-pause="false" >
                 <div className="carousel-inner" style={{ aspectRatio: "211 / 35" }}>
                     <div className="carousel-item active">
@@ -72,6 +79,9 @@ function HomeSection() {
                     <span className="visually-hidden">Next</span>
                 </button>
             </div>
+
+            {/* SMARTPHONES CARD LAYOUT FOR DISPLAY PURPOSE */}
+
             <div className='container mt-3'>
                 <div className='row g-3'>
                     <div className='col-12'>
@@ -118,6 +128,8 @@ function HomeSection() {
                 </div>
             </div>
 
+            {/* OTHER FEATURED PRODUCTS THAT ARE PART OF ONLINE SHOPORIA PORTAL */}
+
             <div className='container mt-3 shadow border'>
                 <div className='row'>
                     <h6 className='fs-4 mt-3 mb-3'>Featured Products</h6>
@@ -157,6 +169,9 @@ function HomeSection() {
                     </div>
                 </div>
             </div>
+
+            {/* BANNERS FOR FASHION & KITCHEN DEALS */}
+
             <div className='container mt-3'>
                 <div className='row g-3'>
                     <div className='col-12 col-md-6'>

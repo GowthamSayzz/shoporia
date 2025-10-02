@@ -79,11 +79,11 @@ function NavBar() {
             <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
                 <div className="container d-flex justify-content-between align-items-center">
 
-                    {/* ---------- Left Side Logo ---------- */}
+                    {/* LEFT SIDE LOGO */}
 
                     <Link to='/' className='navbar-brand'><img src={LogoNoBg} alt="Logo" className='img-fluid' style={{ width: "170px", height: "50px" }} /></Link>
 
-                    {/* ---------- Home Screen Search Bar ---------- */}
+                    {/* HOME SCREEN SEARCH BAR */}
                     <div className="d-none d-lg-flex flex-grow-1 justify-content-center align-items-center px-3">
                         <div className="input-group w-100" style={{ maxWidth: "500px" }}>
                             <button className="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">All</button>
@@ -110,7 +110,7 @@ function NavBar() {
                         </div>
                     </div>
 
-                    {/* ---------- Home Screen Menu ---------- */}
+                    {/* HOME SCREEN MENU */}
                     <button className='navbar-toggler' type='button' onClick={e => handleNavToggle()}>
                         <span className='navbar-toggler-icon'></span>
                     </button>
@@ -138,8 +138,9 @@ function NavBar() {
                                 </div>
                             }
 
+                            {/* USER-CENTRIC LOGIN VALIDATION & USER LOGIN SUCCESSFULL MENU */}
+
                             <li className="nav-item ms-2 dropdown">
-                                {/* <div className="dropdown"> */}
                                     <button className="btn btn-secondary dropdown-toggle fs-5" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         Hello {userFirstName}
                                     </button>
@@ -160,7 +161,6 @@ function NavBar() {
                                             <li><Link className="dropdown-item fs-5" to='/' onClick={e => logoutUser()}><i className='bi bi-box-arrow-right me-2 text-danger'></i>Logout</Link></li>
                                         </ul>
                                     }
-                                {/* </div> */}
                             </li>
                         </ul>
                     </div>

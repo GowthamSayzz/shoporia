@@ -1,6 +1,10 @@
 import axiosInstance from "../apis/axiosInstance";
 import { API_END_POINTS } from "../Constants/endPoints";
 
+/**
+ * !!! PRODUCTS AXIOS INSTANCE TO HANDLE API REQUESTS & RESPONSE
+ */
+
 export const getAllProductsAPI = async (data) => {
     return await axiosInstance.get(API_END_POINTS.ALL_PRODUCTS, data);
 }

@@ -12,10 +12,16 @@ function ResetPassword(){
     const [fpErrors, setfpErrors] = useState({ email: false, apiError: false });
     let [apiMsg, setapiMsg] = useState("");
 
+    /**
+     * !!! GET THE USER INPUT EMAIL DATA
+     */
     const updateEmail = (e) => {
         setfpData({ ...fpData, email: e.target.value });
     }
 
+    /**
+     * !!! FORGOT/RESET PASSWORD LOGIC VALIDATIONS
+     */
     const sendForgotPassword = async () => {
         let tempErrors = {fpErrors}
         let noofErrors = false;

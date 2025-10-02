@@ -25,16 +25,19 @@ function SingleProduct() {
     const [getCart, setGetcart] = useState();
     const [breadcrumb, setBreadcrumb] = useState([]);
 
-    const originalPrice = productData?.price; // 36999.99
-    const discount = productData?.discountPercentage; // 16.44
+    const originalPrice = productData?.price;
+    const discount = productData?.discountPercentage;
 
-    // Calculate discounted price
+    // CALCULATE DISCOUNTED PRICE
     const discountedPrice = (originalPrice * (100 - discount)) / 100;
 
-    // Optionally, round to 2 decimal places
+    // OPTIONALLY, ROUND TO 2 DECIMAL PLACES
     const finalPrice = discountedPrice.toFixed(2);
 
 
+    /**
+     * TODO: PAGE LOADED WITH BELOW STUFF LIKE PRODUCT DATA, JWT TOKEN, BREADCRUMB FLOW, SMILIAR PRODUCTS GALLERY
+     */
     useEffect(() => {
         let userId = getLoggedInUserId();
         let token = getJWTToken();
@@ -42,7 +45,9 @@ function SingleProduct() {
             loadCart();
         }
 
-        //Loads the data when product screen loads
+        /** 
+         * !!! LOADS THE DATA WHEN PRODUCT SCREEN LOADS
+         */
         const getproductData = async () => {
             try {
                 let apiResponse = await getProductByIdAPI(productId);
@@ -53,6 +58,9 @@ function SingleProduct() {
             }
         }
 
+        /**
+         * !!! TO FETCH BREADCRUMB FLOW OF A SINGLE PRODUCT
+         */
         const breadCrumbFlow = async () => {
             try {
                 let apiResponse = await getAllProductsAPI();
@@ -79,6 +87,9 @@ function SingleProduct() {
         getSimilarProducts();
     }, [productId]);
 
+    /**
+     * !!! CART DETAILS WILL GET REFRESHED
+     */
     const loadCart = async () => {
         try {
             let userId = getLoggedInUserId();
@@ -94,7 +105,9 @@ function SingleProduct() {
         }
     }
 
-    //For Other Products tab
+    /** 
+     * !!! FOR OTHER PRODUCTS TAB
+     */
     const getSimilarProducts = async () => {
         try {
             let apiResponse = await getOtherProductsAPI();
@@ -105,6 +118,9 @@ function SingleProduct() {
         }
     }
 
+    /**
+     * TODO: ADD TO CART FUNCTION WITH FULLY LOGICAL & UPDATED PRODUCT LIST
+     */
     const Addtocart = async () => {
         try {
             const userId = getLoggedInUserId();
@@ -130,7 +146,7 @@ function SingleProduct() {
                     existingCart.push({ id: productId, quantity: productqty });
                 }
 
-                // Send updated cart to backend
+                // SEND UPDATED CART TO BACKEND
                 const addResponse = await addtoCartByUserId({
                     userId,
                     products: existingCart
@@ -160,7 +176,9 @@ function SingleProduct() {
                 <div className='row mt-4'>
                     <div className="col-12 col-md-5 mb-4 mb-md-0">
                         <div className="row">
-                            {/* Left column - Thumbnails */}
+
+                            {/* LEFT COLUMN - THUMBNAILS */}
+
                             <div className="col-2 d-flex flex-column align-items-start">
                                 {productData?.images.map((image, i) => (
                                     <div key={i} className="mb-2">
@@ -175,7 +193,8 @@ function SingleProduct() {
                                 ))}
                             </div>
 
-                            {/* Right column - Main Image */}
+                            {/* RIGHT COLUMN - MAIN IMAGE & A MAGNIFIER */}
+
                             <div className="col-10 d-flex justify-content-center">
                                 {mainImage && (
                                     <SideBySideMagnifier
@@ -191,6 +210,9 @@ function SingleProduct() {
                             </div>
                         </div>
                     </div>
+
+                    {/* BREADCRUM FLOW DISPLAY */}
+
                     <div className="col-12 col-md-4">
                         <p className="breadcrumb text-capitalize">
                             {breadcrumb.map((item, index) => (
@@ -200,6 +222,9 @@ function SingleProduct() {
                                 </span>
                             ))}
                         </p>
+
+                        {/* PRODUCT DETAILS DISPLAY */}
+
                         {productData != null && <h3>{productData.title}</h3>}
                         <div>
                             <span className="badge rounded-pill text-bg-success px-2 py-1 small mb-2">{productData?.rating} <i className="bi bi-star-fill"></i></span>
@@ -237,6 +262,9 @@ function SingleProduct() {
                             </div>
                         </div>
                     </div>
+
+                    {/* PRODUCT QUANTITY SELECTION & ADD TO CART PRE CHECKS */}
+
                     <div className="col-12 col-md-3 mt-4 mt-md-0">
                         <div className="card">
                             <div className="card-body">
@@ -251,7 +279,6 @@ function SingleProduct() {
                         </div>
                     </div>
                 </div>
-                {/* <div className="container mt-5"> */}
                     <div className="row mt-5">
                         <div className="col-12">
                             <div className="card p-3">
@@ -269,7 +296,6 @@ function SingleProduct() {
                                                         className="img-fluid product-card"
                                                     />
                                                     <h6 className="mt-2">{similarproductsLoop?.title}</h6>
-                                                    {/* <h6 className="mt-3 badge text-bg-success"><i className="i bi-star-fill text-sm"></i> {similarproductsLoop?.rating}</h6> */}
                                                     <h6 className="text-center"><i className="i bi-currency-rupee fs-6"></i>{similarproductsLoop?.price}</h6>
                                                 </div>
                                             )
@@ -279,8 +305,6 @@ function SingleProduct() {
                             </div>
                         </div>
                     </div>
-                {/* </div> */}
-                {/* <div className="container mt-3"> */}
                     <div className="row mt-3">
                         <div className="col-12">
                             <div className="card">
@@ -306,7 +330,6 @@ function SingleProduct() {
                             </div>
                         </div>
                     </div>
-                {/* </div> */}
             </div>
             <ToastContainer />
             <Footer />

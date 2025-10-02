@@ -9,6 +9,10 @@ import { ToastContainer, toast } from 'react-toastify';
 
 function Signup() {
 
+    /**
+     * !!! CHECKING USER LOGIN STATUS
+     */
+
     let isUserLoggedIn = checkUserLoginStatus();
     if (isUserLoggedIn === true) {
         window.location = '/';
@@ -16,6 +20,10 @@ function Signup() {
 
     const [signupData, setsignupData] = useState({ name: "", email: "", password: "" });
     const [signupErrors, setSignupErrors] = useState({ name: false, email: false, password: false });
+
+    /**
+     * !!! GET THE USER INPUTS USERNAME, EMAIL & PASSWORD TO CREATE NEW ACCOUNT IN SHOPORIA WEBSITE
+     */
 
     const updateName = (e) => {
         setsignupData({ ...signupData, name: e.target.value });
@@ -28,6 +36,10 @@ function Signup() {
     const updatePassword = (e) => {
         setsignupData({ ...signupData, password: e.target.value });
     }
+
+    /**
+     * !!! USERNAME, EMAIL & PASSWORD VALIDATIONS TO CREATE NEW ACCOUNT IN SHOPORIA WEBSITE
+     */
 
     const sendSignUpData = async () => {
         let tempErrors = { signupErrors }

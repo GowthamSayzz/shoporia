@@ -173,6 +173,9 @@ function Cart() {
     return (
         <div className='d-flex flex-column min-vh-100'>
             <NavBar />
+
+            {/* VALIDATES THE CART LENGTH TO DISPLAY THE LOGGED IN USER CART INFORMATION ALONG WITH PRODUCT DETAILS AND OTHER RELATED DATA. */}
+
             <div className="container shoporia-mt flex-grow-1">
                 {
                     (cartData === null || cartData.length === 0) && (

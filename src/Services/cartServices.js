@@ -1,6 +1,10 @@
 import axiosInstance from "../apis/axiosInstance";
 import { API_END_POINTS } from "../Constants/endPoints";
 
+/**
+ * !!! CART AXIOS INSTANCE TO HANDLE API REQUESTS & RESPONSE
+ */
+
 export const getCartByUserId = async (data) => {
     return await axiosInstance.get(`${API_END_POINTS.GET_SINGLE_CART}/${data}`);
 }

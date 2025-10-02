@@ -3,6 +3,9 @@ function PersonalInformation({ profiledata }) {
     return (
         <div className='p-2'>
             <h5 className="mb-3">Personal Information</h5>
+
+            {/* LOGGED IN USER PROFILE INFORMATION WILL BE DISPLAYED HERE */}
+            
             {
                 <div>
                     <div className='mb-3'>
@@ -34,6 +37,9 @@ function PersonalInformation({ profiledata }) {
                     </div>
                 </div>
             }
+
+            {/* A FOOTER BANNER TO PROVIDE A CLEAN AND ENHANCED UI EXPERIENCE */}
+
             <div className='mt-4'>
                 <img src={banner} alt="footer-banner" className='img-fluid' style={{ width: '100%', height: '100%' }} />
             </div>

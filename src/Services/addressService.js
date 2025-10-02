@@ -1,6 +1,10 @@
 import axiosInstance from "../apis/axiosInstance";
 import { API_END_POINTS } from "../Constants/endPoints";
 
+/**
+ * !!! ADDRESS AXIOS INSTANCE TO HANDLE API REQUESTS & RESPONSE
+ */
+
 export const addressaddAPI = async (data) => {
     return await axiosInstance.post(API_END_POINTS.ADDRESS_ADD, data);
 }

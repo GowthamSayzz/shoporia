@@ -18,11 +18,17 @@ function Account() {
     const [manageaddress, setManageAddress] = useState({});
     const [isAdmin, setIsAdmin] = useState('');
 
+    /**
+     * !!! LOGOUT THE LOGGED IN USER SESSION
+     */
     const logoutUser = () => {
         localStorage.clear();
         window.location.href = '/signin';
     }
 
+    /**
+     * !!! RENDERS THE REQUIRED USER INFORMATION IN REAL TIME BASED ON JS VALIDATION AND JWT TOKEN
+     */
     useEffect(() => {
         let userId = getLoggedInUserId();
         if (!userId || userId === null) {
@@ -65,6 +71,9 @@ function Account() {
             <div className="container shoporia-mt flex-grow-1">
                 <div className="row">
                     <div className="col-12 col-md-3 mb-3 mb-md-0">
+
+                        {/* USER PROFILE PICTURE AND NAME */}
+
                         <div className="card shadow mb-3">
                             <div className="card-body d-flex flex-column flex-md-row align-items-center">
                                 <img
@@ -79,6 +88,8 @@ function Account() {
                                 </div>
                             </div>
                         </div>
+
+                        {/* LOGGED IN USER DETAILS LIKE PROFILE, ADDRESS, SAVED CARDS & ADMIN CONTROL (ONLY TO ADMINS) */}
 
                         <div className="card shadow mb-3">
                             <div className="card-body">
@@ -100,6 +111,9 @@ function Account() {
                                         <Link className="d-inline-flex pt-1 link-underline link-underline-opacity-0">Saved Cards</Link>
                                     </div>
                                 </div>
+
+
+                                {/* ADMIN VALIDATIONS & ADMIN CONSOLE FOR ORG LEVEL OPERATIONS */}
 
                                 {
                                     isAdmin === 'admin' &&
@@ -144,6 +158,8 @@ function Account() {
                             </div>
                         </div>
                     </div>
+
+                    {/* USER INFORMATION TABS CHANGES BASED ON USER SELECTION AS PER ABOVE MENTIONED USER PROFILE SETTINGS */}
 
                     <div className="col-12 col-md-9">
                         <div className="card">

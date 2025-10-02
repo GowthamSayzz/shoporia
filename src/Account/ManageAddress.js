@@ -6,7 +6,9 @@ import { ToastContainer, toast } from 'react-toastify';
 function ManageAddress({ manageaddressdata, profiledata }) {
 
     const [addressData, setAddressData] = useState({ name: '', mobile: '', email: '', address: '', city: '', state: '', country: '', pincode: '' });
-
+    /**
+     * !!! RETRIVES THE LOGGED IN USER SAVED ADDRESS
+     */
     const addressHandler = async () => {
         try {
             let apiResponse = await addressaddAPI(addressData);
@@ -19,6 +21,10 @@ function ManageAddress({ manageaddressdata, profiledata }) {
     return (
         <div className='p-2'>
             <h5 className="mb-3">Manage Address</h5>
+
+            {/* DISPLAYS THE LOGGED IN USER ADDRESS IN A CARD LAYOUT FOR A CLEAR AND ORGANIZED PRESENTATION.
+            LOGGED IN USER CAN ADD A NEW ADDRESS USING THIS BUTTON */}
+
             <button className='btn btn-primary fw-bold border border-1' data-bs-toggle="collapse" data-bs-target="#myFormCollapse">
                 <i className='bi bi-plus me-2'></i>ADD A NEW ADDRESS
             </button>
@@ -38,6 +44,9 @@ function ManageAddress({ manageaddressdata, profiledata }) {
                     </div>
                 }
             </div>
+
+            {/* OPENS A NEW ADDRESS FORM TO CAPTURE INPUTS FOR ADDING A NEW ADDRESS */}
+
             <div className='card card-body mt-3 collapse shadow-sm' id='myFormCollapse'>
                 <h6 className='fw-bold'>Add Address</h6>
                 <div className="mt-2">
@@ -76,6 +85,9 @@ function ManageAddress({ manageaddressdata, profiledata }) {
                     <button className='btn btn-warning' onClick={() => addressHandler()}>Submit</button>
                 </div>
             </div>
+
+            {/* A FOOTER BANNER TO PROVIDE A CLEAN AND ENHANCED UI EXPERIENCE */}
+
             <div className='mt-4'>
                 <img src={banner} alt="footer-banner" className='img-fluid' style={{ width: '100%', height: '100%' }} />
             </div>
